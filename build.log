@@ -1,0 +1,38 @@
+
+> ragsdale@0.1.0 build
+> next build
+
+▲ Next.js 16.2.3 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1710ms
+  Running TypeScript ...
+  Finished TypeScript in 1359ms ...
+  Collecting page data using 10 workers ...
+  Generating static pages using 10 workers (0/21) ...
+  Generating static pages using 10 workers (5/21) 
+  Generating static pages using 10 workers (10/21) 
+  Generating static pages using 10 workers (15/21) 
+✓ Generating static pages using 10 workers (21/21) in 224ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ƒ /api/contact
+├ ○ /blog
+├ ● /blog/[slug]
+│ ├ /blog/choosing-right-business-card-stock
+│ ├ /blog/print-ready-files-designers-guide
+│ ├ /blog/large-format-printing-marketing
+│ └ [+9 more paths]
+├ ○ /contact
+└ ○ /services
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -138,10 +138,10 @@ export default function Home() {
 
       <GoogleReviews />
 
-      <section className="py-20 bg-primary text-white">
+      <section className="py-20 bg-primary">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-xl text-gray-300 mb-8">
+          <h2 className="text-4xl font-bold mb-6 text-gray-900">Ready to Get Started?</h2>
+          <p className="text-xl text-gray-900 mb-8">
             Let's bring your vision to life. Contact us today to discuss your printing needs.
           </p>
           <Link

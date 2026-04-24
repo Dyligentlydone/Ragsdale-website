@@ -125,7 +125,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   }
 
   return (
-    <div className="py-20 bg-white">
+    <div className="py-24 bg-black text-zinc-100">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link 
           href="/blog"
@@ -136,13 +136,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </Link>
 
         <div className="mb-8">
-          <span className="inline-block px-3 py-1 bg-orange-50 text-primary rounded-full text-sm font-medium mb-4">
+          <span className="inline-block px-3 py-1 bg-primary/10 border border-primary/20 text-primary rounded-full text-sm font-medium mb-4">
             {post.category}
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-white mb-6">
             {post.title}
           </h1>
-          <div className="flex items-center gap-6 text-gray-600">
+          <div className="flex items-center gap-6 text-zinc-400">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               <span>{post.date}</span>
@@ -155,7 +155,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </div>
 
         {post.image && (
-          <div className="mb-12 rounded-lg overflow-hidden">
+          <div className="mb-12 rounded-2xl overflow-hidden border border-zinc-900">
             <img 
               src={post.image} 
               alt={post.title}
@@ -165,19 +165,24 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         )}
 
         <div 
-          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary prose-strong:text-gray-900 prose-ul:text-gray-700"
+          className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-zinc-300 prose-a:text-primary prose-strong:text-white prose-ul:text-zinc-300 prose-li:text-zinc-300"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Project?</h3>
-            <p className="text-gray-700 mb-6">
+        <div className="mt-16 pt-8 border-t border-zinc-900">
+          <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-950 via-black to-zinc-950 p-10">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-64 w-[120%] opacity-30"
+              style={{ background: "radial-gradient(closest-side, rgba(241,93,42,0.45), transparent)" }}
+            />
+            <h3 className="relative text-2xl md:text-3xl font-semibold tracking-tight text-white mb-4">Ready to Start Your Project?</h3>
+            <p className="relative text-zinc-400 mb-8">
               Our team at Ragsdale Design Center is here to help bring your printing and design projects to life with expert guidance and quality craftsmanship.
             </p>
             <Link 
               href="/contact"
-              className="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors"
+              className="relative inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
             >
               Contact Us Today
             </Link>

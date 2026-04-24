@@ -1,0 +1,49 @@
+/* Dark-themed Leaflet zoom controls */
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-bar {
+  border: 1px solid #27272a !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 9999px !important;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+.leaflet-bar a {
+  background-color: transparent !important;
+  color: #d4d4d8 !important;
+  border-bottom: 1px solid #27272a !important;
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  transition: color 150ms, background-color 150ms;
+}
+
+.leaflet-bar a:last-child {
+  border-bottom: none !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: rgba(24, 24, 27, 0.8) !important;
+  color: #f15d2a !important;
+}
+
+.leaflet-bar a.leaflet-disabled {
+  color: #52525b !important;
+  cursor: default;
+}
+
+.leaflet-touch .leaflet-bar a {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+}
+
+.leaflet-control-zoom {
+  margin: 16px !important;
+}

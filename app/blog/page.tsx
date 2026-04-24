@@ -112,32 +112,33 @@ const blogPosts = [
 
 export default function BlogPage() {
   return (
-    <div className="py-20 bg-white">
+    <div className="py-24 bg-black text-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-primary mb-4">Blog</p>
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-white mb-6">
             Print & Design Insights
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
             Expert tips, industry trends, and practical advice to help you make the most of your print and design projects.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
-            <article key={post.slug} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <article key={post.slug} className="group bg-zinc-950/50 rounded-2xl border border-zinc-900 overflow-hidden hover:border-zinc-700 transition-colors">
               {post.image && (
-                <div className="h-48 bg-gray-100 overflow-hidden">
+                <div className="h-48 bg-zinc-900 overflow-hidden">
                   <img 
                     src={post.image} 
                     alt={post.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
                   />
                 </div>
               )}
               <div className="p-6">
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                  <span className="inline-block px-3 py-1 bg-orange-50 text-primary rounded-full text-xs font-medium">
+                <div className="flex items-center gap-4 text-sm text-zinc-500 mb-3">
+                  <span className="inline-block px-3 py-1 bg-primary/10 border border-primary/20 text-primary rounded-full text-xs font-medium">
                     {post.category}
                   </span>
                   <div className="flex items-center gap-1">
@@ -145,14 +146,14 @@ export default function BlogPage() {
                     <span>{post.date}</span>
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                <h2 className="text-xl font-semibold text-white mb-3 line-clamp-2">
                   {post.title}
                 </h2>
-                <p className="text-gray-600 mb-4 line-clamp-3">
+                <p className="text-zinc-400 mb-4 line-clamp-3">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
+                  <div className="flex items-center gap-1 text-sm text-zinc-500">
                     <Clock className="w-4 h-4" />
                     <span>{post.readTime}</span>
                   </div>
@@ -169,14 +170,19 @@ export default function BlogPage() {
           ))}
         </div>
 
-        <div className="mt-16 bg-orange-50 border border-orange-200 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Next Project?</h2>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+        <div className="relative mt-20 overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-950 via-black to-zinc-950 p-10 text-center">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-64 w-[120%] opacity-40"
+            style={{ background: "radial-gradient(closest-side, rgba(241,93,42,0.45), transparent)" }}
+          />
+          <h2 className="relative text-2xl md:text-3xl font-semibold tracking-tight text-white mb-4">Ready to Start Your Next Project?</h2>
+          <p className="relative text-zinc-400 mb-8 max-w-2xl mx-auto">
             Whether you need business cards, marketing materials, or large format printing, our team is here to help bring your vision to life.
           </p>
           <Link 
             href="/contact"
-            className="inline-block bg-primary text-white px-8 py-3 rounded-md hover:bg-primary/90 transition-colors"
+            className="relative inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
           >
             Get Started Today
           </Link>

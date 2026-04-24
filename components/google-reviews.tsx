@@ -64,12 +64,12 @@ export function GoogleReviews() {
   }
 
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-20 bg-black overflow-hidden border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-8">
           {/* Business Info Card - Left Side */}
-          <div className="flex-shrink-0 w-64">
-            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+          <div className="lg:flex-shrink-0 lg:w-64">
+            <div className="bg-zinc-950/60 rounded-2xl p-6 border border-zinc-900">
               <div className="flex items-start gap-3 mb-4">
                 <Image 
                   src="/images /LOGO.png" 
@@ -79,16 +79,16 @@ export function GoogleReviews() {
                   className="rounded"
                 />
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 text-sm">Ragsdale Design Center LLC</h3>
+                  <h3 className="font-semibold text-white text-sm">Ragsdale Design Center LLC</h3>
                   <div className="flex items-center gap-1 mt-1">
-                    <span className="text-sm font-medium text-gray-900">5.0</span>
+                    <span className="text-sm font-medium text-white">5.0</span>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                   </div>
-                  <p className="text-xs text-gray-600 mt-1">10 Google Reviews</p>
+                  <p className="text-xs text-zinc-400 mt-1">10 Google Reviews</p>
                 </div>
               </div>
               <Image 
@@ -102,9 +102,9 @@ export function GoogleReviews() {
                 href="https://share.google/qIT79YMaSTftYfX9O"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-600 hover:underline"
+                className="text-xs text-primary hover:underline"
               >
-                View on Google
+                View on Google →
               </a>
             </div>
           </div>
@@ -118,7 +118,7 @@ export function GoogleReviews() {
               >
                 {reviews.map((review, index) => (
                   <div key={index} className="min-w-full">
-                    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+                    <div className="bg-zinc-950/60 rounded-2xl p-6 border border-zinc-900">
                       <div className="flex items-start gap-3 mb-3">
                         <img 
                           src={review.photoUrl || `https://ui-avatars.com/api/?name=${review.avatar}&background=random&size=40&rounded=true`}
@@ -127,7 +127,7 @@ export function GoogleReviews() {
                         />
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
-                            <h4 className="font-semibold text-gray-900 text-sm">{review.author}</h4>
+                            <h4 className="font-semibold text-white text-sm">{review.author}</h4>
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -141,12 +141,12 @@ export function GoogleReviews() {
                                 <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                               ))}
                             </div>
-                            <span className="text-xs text-gray-500">{review.date}</span>
+                            <span className="text-xs text-zinc-500">{review.date}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-gray-700 text-sm leading-relaxed">{review.text}</p>
-                      <button className="text-blue-600 text-xs mt-2 hover:underline">Read More</button>
+                      <p className="text-zinc-300 text-sm leading-relaxed">{review.text}</p>
+                      <button className="text-primary text-xs mt-2 hover:underline">Read More</button>
                     </div>
                   </div>
                 ))}
@@ -156,19 +156,19 @@ export function GoogleReviews() {
             {/* Navigation Arrows */}
             <button
               onClick={prevReview}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full shadow-lg p-2 hover:bg-gray-50 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-zinc-900 border border-zinc-800 rounded-full shadow-lg p-2 hover:bg-zinc-800 z-10"
               aria-label="Previous review"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={nextReview}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full shadow-lg p-2 hover:bg-gray-50 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-zinc-900 border border-zinc-800 rounded-full shadow-lg p-2 hover:bg-zinc-800 z-10"
               aria-label="Next review"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -180,7 +180,7 @@ export function GoogleReviews() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentIndex ? "bg-gray-800" : "bg-gray-300"
+                    index === currentIndex ? "bg-primary" : "bg-zinc-700"
                   }`}
                   aria-label={`Go to review ${index + 1}`}
                 />

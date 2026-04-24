@@ -190,28 +190,28 @@ export function ContactForm() {
 
       <div className="space-y-2">
         <Label>Upload Files (Optional)</Label>
-        <p className="text-sm text-gray-500 mb-2">
+        <p className="text-sm text-zinc-500 mb-2">
           Upload your design files, logos, or reference images. Accepted formats: PDF, AI, EPS, PSD, INDD, PNG, JPG, JPEG, SVG, GIF, WEBP, ZIP (Max 100MB per file)
         </p>
         
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+          className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
             isDragActive
-              ? "border-primary bg-orange-50"
-              : "border-gray-300 hover:border-primary"
+              ? "border-primary bg-primary/10"
+              : "border-zinc-800 bg-zinc-950/50 hover:border-primary"
           }`}
         >
           <input {...getInputProps()} />
-          <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+          <Upload className="w-12 h-12 mx-auto mb-4 text-zinc-500" />
           {isDragActive ? (
-            <p className="text-gray-600">Drop the files here...</p>
+            <p className="text-zinc-300">Drop the files here...</p>
           ) : (
             <div>
-              <p className="text-gray-600 mb-2">
+              <p className="text-zinc-300 mb-2">
                 Drag & drop files here, or click to select files
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-zinc-500">
                 Up to 100MB per file
               </p>
             </div>
@@ -221,14 +221,14 @@ export function ContactForm() {
         {files.length > 0 && (
           <div className="mt-4 space-y-2">
             <div className="flex justify-between items-center mb-2">
-              <p className="text-sm font-medium text-gray-900">
+              <p className="text-sm font-medium text-white">
                 {files.length} file{files.length > 1 ? "s" : ""} selected ({totalSizeMB} MB)
               </p>
             </div>
             {files.map((uploadedFile, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between p-3 bg-zinc-950 border border-zinc-900 rounded-lg"
               >
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   {uploadedFile.preview ? (
@@ -238,13 +238,13 @@ export function ContactForm() {
                       className="w-12 h-12 object-cover rounded"
                     />
                   ) : (
-                    <FileIcon className="w-12 h-12 text-gray-400" />
+                    <FileIcon className="w-12 h-12 text-zinc-500" />
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
+                    <p className="text-sm font-medium text-white truncate">
                       {uploadedFile.file.name}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-zinc-500">
                       {(uploadedFile.file.size / (1024 * 1024)).toFixed(2)} MB
                     </p>
                   </div>
@@ -252,9 +252,9 @@ export function ContactForm() {
                 <button
                   type="button"
                   onClick={() => removeFile(index)}
-                  className="ml-2 p-1 hover:bg-gray-200 rounded"
+                  className="ml-2 p-1 hover:bg-zinc-800 rounded"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5 text-zinc-400" />
                 </button>
               </div>
             ))}
@@ -263,14 +263,14 @@ export function ContactForm() {
       </div>
 
       {submitStatus === "success" && (
-        <div className="flex items-center gap-2 p-4 bg-green-50 text-green-800 rounded-lg">
+        <div className="flex items-center gap-2 p-4 bg-green-500/10 border border-green-500/30 text-green-300 rounded-lg">
           <CheckCircle2 className="w-5 h-5" />
           <p>Thank you! We've received your message and will get back to you soon.</p>
         </div>
       )}
 
       {submitStatus === "error" && (
-        <div className="flex items-center gap-2 p-4 bg-red-50 text-red-800 rounded-lg">
+        <div className="flex items-center gap-2 p-4 bg-red-500/10 border border-red-500/30 text-red-300 rounded-lg">
           <X className="w-5 h-5" />
           <p>There was an error submitting your form. Please try again or contact us directly.</p>
         </div>
@@ -279,7 +279,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-primary hover:bg-primary/90 text-white h-12 text-lg"
+        className="w-full bg-primary hover:bg-primary/90 text-white h-12 text-lg rounded-full"
       >
         {isSubmitting ? (
           <>

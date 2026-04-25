@@ -1,5 +1,5 @@
 import { ContactForm } from "@/components/contact-form"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Phone, MapPin, Clock } from "lucide-react"
 
 export const metadata = {
   title: "Contact Us - Ragsdale Design",
@@ -43,13 +43,6 @@ export default function ContactPage() {
                   <div>
                     <p className="font-medium text-white">Phone</p>
                     <p className="text-zinc-400">(616) 884-5680</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-primary mt-1" />
-                  <div>
-                    <p className="font-medium text-white">Email</p>
-                    <p className="text-zinc-400">info@ragsdaledesign.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

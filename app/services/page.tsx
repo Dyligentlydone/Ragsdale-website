@@ -166,7 +166,7 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1 rounded-2xl h-64 md:h-96 flex items-center justify-center bg-zinc-950/60 border border-zinc-900">
                 <img 
-                  src="/images /specialty items & more.png" 
+                  src="/images /specialty items and more.png" 
                   alt="Specialty Items" 
                   className="w-full h-full object-contain"
                 />
@@ -234,7 +234,7 @@ export default function ServicesPage() {
               </div>
               <div className="rounded-2xl h-64 md:h-96 flex items-center justify-center bg-zinc-950/60 border border-zinc-900">
                 <img 
-                  src="/images /Invitations & Announcements use.png" 
+                  src="/images /Invitations and Announcements use.png" 
                   alt="Invitations & Announcements" 
                   className="w-full h-full object-contain"
                 />

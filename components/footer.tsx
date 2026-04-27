@@ -73,7 +73,7 @@ export function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-gray-400 text-sm">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 text-center md:text-left">
-            <p>&copy; {new Date().getFullYear()} Ragsdale Design Center. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Ragsdale Design Center LLC. All rights reserved.</p>
             <p>
               Website By: <a href="https://www.dyligent.solutions/" target="_blank" rel="noopener noreferrer" className="text-[#d7b740] hover:text-[#e6c75a] transition-colors">{"{"} Dyligent {"}"}</a>
             </p>

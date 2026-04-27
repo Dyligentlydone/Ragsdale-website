@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contact-form"
+import Image from "next/image"
 import { Phone, MapPin, Clock } from "lucide-react"
 
 export const metadata = {
@@ -11,6 +12,15 @@ export default function ContactPage() {
     <div className="py-24 bg-black text-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
+          <div className="flex justify-center mb-8">
+            <Image
+              src="/images /LOGO.png"
+              alt="Ragsdale Design Center"
+              width={280}
+              height={90}
+              className="h-12 md:h-16 w-auto"
+            />
+          </div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-white mb-6">
             Let's Work Together
           </h1>
@@ -61,6 +71,7 @@ export default function ContactPage() {
               <ul className="space-y-2 text-zinc-300">
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Project type and quantity needed</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Preferred size and materials</span></li>
+                <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>One or two sided</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Timeline and deadline</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Design files or reference images</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Any special requirements</span></li>
@@ -70,9 +81,9 @@ export default function ContactPage() {
             <div className="rounded-2xl border border-zinc-900 bg-zinc-950/50 p-6">
               <h3 className="text-lg font-semibold text-white mb-3">File Upload Tips</h3>
               <div className="text-sm text-zinc-400 space-y-2">
-                <p className="font-semibold text-zinc-300">Accepted: PDF, JPG, JPEG, PNG, AI, and SVG.</p>
-                <p><span className="font-semibold text-zinc-300">Print-ready files:</span> Must be submitted in PDF format.</p>
-                <p><span className="font-semibold text-zinc-300">Logos and vector files:</span> Must be in AI or SVG format.</p>
+                <p className="font-semibold text-zinc-300">Accepted: PDF, AI, EPS, PSD, INDD, PNG, JPG, JPEG, SVG, GIF, WEBP, ZIP.</p>
+                <p><span className="font-semibold text-zinc-300">Print-ready files:</span> Must be submitted in PDF format with correct bleed area, if necessary.</p>
+                <p><span className="font-semibold text-zinc-300">Logos and vector files:</span> Must be in AI, SVG, or EPS format.</p>
                 <p className="mt-3">For best results, upload high-resolution files (300 DPI minimum). Files up to 100MB each.</p>
               </div>
             </div>

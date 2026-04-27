@@ -17,7 +17,7 @@ const pinIcon = L.divIcon({
     <div style="position:relative;width:36px;height:36px;transform:translate(-50%,-50%);">
       <span style="position:absolute;inset:5px;border-radius:9999px;background:rgba(140,198,63,0.45);animation:ragsdale-pin-ping 2s cubic-bezier(0,0,0.2,1) infinite;"></span>
       <span style="position:absolute;inset:5px;border-radius:9999px;background:rgba(140,198,63,0.35);animation:ragsdale-pin-ping 2s cubic-bezier(0,0,0.2,1) infinite; animation-delay:0.6s;"></span>
-      <img src="/images /LOGO.png" alt="Ragsdale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 6px rgba(140,198,63,0.55));" />
+      <img src="/images /FULL LOGO.png" alt="Ragsdale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 6px rgba(140,198,63,0.55));" />
     </div>
     <style>
       @keyframes ragsdale-pin-ping {

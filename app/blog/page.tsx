@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
 
 export const metadata = {
@@ -115,7 +116,15 @@ export default function BlogPage() {
     <div className="py-24 bg-black text-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-primary mb-4">Blog</p>
+          <div className="flex justify-center mb-8">
+            <Image
+              src="/images /LOGO.png"
+              alt="Ragsdale Design Center"
+              width={280}
+              height={90}
+              className="h-12 md:h-16 w-auto"
+            />
+          </div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-white mb-6">
             Print & Design Insights
           </h1>

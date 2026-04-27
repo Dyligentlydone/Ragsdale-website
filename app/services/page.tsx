@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { CreditCard, FileText, Flag, Package, Palette, Printer, CheckCircle } from "lucide-react"
+import Image from "next/image"
+import { CreditCard, FileText, Flag, Package, Palette, Printer, CheckCircle, Mail } from "lucide-react"
 
 export const metadata = {
   title: "Services - Ragsdale Design",
@@ -11,6 +12,15 @@ export default function ServicesPage() {
     <div className="py-24 bg-black text-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
+          <div className="flex justify-center mb-8">
+            <Image
+              src="/images /LOGO.png"
+              alt="Ragsdale Design Center"
+              width={280}
+              height={90}
+              className="h-12 md:h-16 w-auto"
+            />
+          </div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-white mb-6">
             Our Services
           </h1>
@@ -24,7 +34,7 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <CreditCard className="w-16 h-16 text-primary mb-6" />
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">Business Cards</h2>
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-primary mb-4">Business Cards</h2>
                 <p className="text-lg text-zinc-400 mb-6">
                   Make a lasting first impression with premium business cards that reflect your brand's quality and professionalism.
                 </p>
@@ -35,11 +45,11 @@ export default function ServicesPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Matte, gloss, soft-touch, and uncoated finishes</span>
+                    <span className="text-zinc-300">Matte, gloss, soft-touch, and uncoated finishes, and more</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Specialty options: foil stamping, embossing, spot UV</span>
+                    <span className="text-zinc-300">Specialty options: foil stamping, embossing, spot UV, and more</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
@@ -64,14 +74,14 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1 rounded-2xl h-64 md:h-96 flex items-center justify-center bg-zinc-950/60 border border-zinc-900">
                 <img 
-                  src="/images /marketing materials .png" 
+                  src="/images /Marketing Materials USE.png" 
                   alt="Marketing Materials" 
                   className="w-full h-full object-contain"
                 />
               </div>
               <div className="order-1 lg:order-2">
                 <FileText className="w-16 h-16 text-primary mb-6" />
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">Marketing Materials</h2>
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-primary mb-4">Marketing Materials</h2>
                 <p className="text-lg text-zinc-400 mb-6">
                   Get your message out with high-quality marketing materials that capture attention and drive results.
                 </p>
@@ -108,18 +118,26 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <Flag className="w-16 h-16 text-primary mb-6" />
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">Large-Format Printing & Signage</h2>
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-primary mb-4">Large-Format Printing & Signage</h2>
                 <p className="text-lg text-zinc-400 mb-6">
                   Professional large-format printing for indoor and outdoor signage that makes a big impact.
                 </p>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-zinc-300">Trade show items</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-zinc-300">Engineering plans</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                     <span className="text-zinc-300">Large-format printing and vinyl banners</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Posters and door hangers</span>
+                    <span className="text-zinc-300">Posters</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
@@ -148,14 +166,14 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1 rounded-2xl h-64 md:h-96 flex items-center justify-center bg-zinc-950/60 border border-zinc-900">
                 <img 
-                  src="/images /menu.png" 
+                  src="/images /specialty items & more.png" 
                   alt="Specialty Items" 
                   className="w-full h-full object-contain"
                 />
               </div>
               <div className="order-1 lg:order-2">
                 <Package className="w-16 h-16 text-primary mb-6" />
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">Specialty Items & More</h2>
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-primary mb-4">Specialty Items & More</h2>
                 <p className="text-lg text-zinc-400 mb-6">
                   Custom specialty items and promotional products that make your brand memorable.
                 </p>
@@ -184,30 +202,30 @@ export default function ServicesPage() {
             </div>
           </section>
 
-          <section id="art-prints" className="scroll-mt-20">
+          <section id="invitations" className="scroll-mt-20">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Palette className="w-16 h-16 text-primary mb-6" />
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">Art Prints</h2>
+                <Mail className="w-16 h-16 text-primary mb-6" />
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-primary mb-4">Invitations & Announcements</h2>
                 <p className="text-lg text-zinc-400 mb-6">
-                  Museum-quality art reproduction and custom prints for artists and galleries.
+                  Beautifully crafted invitations and announcements for weddings, parties, graduations, and special occasions.
                 </p>
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Giclée printing on premium papers</span>
+                    <span className="text-zinc-300">Wedding and event invitations</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Canvas prints and stretching</span>
+                    <span className="text-zinc-300">Graduation and birthday announcements</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Fine art reproduction services</span>
+                    <span className="text-zinc-300">Holiday cards and seasonal greetings</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Custom sizes and mounting options</span>
+                    <span className="text-zinc-300">Custom designs and premium papers</span>
                   </li>
                 </ul>
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors">
@@ -216,8 +234,8 @@ export default function ServicesPage() {
               </div>
               <div className="rounded-2xl h-64 md:h-96 flex items-center justify-center bg-zinc-950/60 border border-zinc-900">
                 <img 
-                  src="/images /art prints .png" 
-                  alt="Art Prints" 
+                  src="/images /Invitations & Announcements use.png" 
+                  alt="Invitations & Announcements" 
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -234,14 +252,8 @@ export default function ServicesPage() {
           <Printer className="relative w-14 h-14 mx-auto mb-6 text-primary" />
           <h2 className="relative text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">And Much More</h2>
           <p className="relative text-lg text-zinc-400 mb-8 max-w-3xl mx-auto">
-            We also offer logo design, lamination, small bindery services, invitations, announcements, and specialty printing projects. If you can imagine it, we can print it.
+            We also offer logo design, lamination up to 11x17, small bindery services, layout, graphic design, editing, photo restoration, and specialty printing projects. If you can imagine it, we can print it.
           </p>
-          <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-10 text-sm">
-            <div className="text-zinc-400">• Logos</div>
-            <div className="text-zinc-400">• Lamination</div>
-            <div className="text-zinc-400">• Bindery Services</div>
-            <div className="text-zinc-400">• Custom Projects</div>
-          </div>
           <Link href="/contact" className="relative inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full text-base font-medium hover:bg-primary/90 transition-colors">
             Discuss Your Project
           </Link>

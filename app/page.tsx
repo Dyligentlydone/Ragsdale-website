@@ -39,12 +39,12 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex justify-center mb-8">
               <Image
-                src="/images /LOGO.png"
+                src="/images /FULL LOGO.png"
                 alt="Ragsdale Design Center"
                 width={280}
                 height={90}
                 priority
-                className="h-20 md:h-24 w-auto"
+                className="h-28 md:h-32 w-auto"
               />
             </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950/70 px-3 py-1 text-[10px] sm:text-xs text-zinc-400 backdrop-blur">

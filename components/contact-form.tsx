@@ -184,7 +184,7 @@ export function ContactForm() {
           onChange={handleInputChange}
           required
           rows={6}
-          placeholder="Tell us about your project, including quantity, size, timeline, and any specific requirements..."
+          placeholder="Tell us about your project, including quantity, size, timeline, one or two sided, and any specific requirements..."
         />
       </div>
 

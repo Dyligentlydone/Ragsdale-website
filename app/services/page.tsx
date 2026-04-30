@@ -106,6 +106,10 @@ export default function ServicesPage() {
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                     <span className="text-zinc-300">Booklets, programs, and catalogs</span>
                   </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-zinc-300">And so much more</span>
+                  </li>
                 </ul>
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors">
                   Get Started
@@ -133,7 +137,7 @@ export default function ServicesPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                    <span className="text-zinc-300">Large-format printing and vinyl banners</span>
+                    <span className="text-zinc-300">Banners</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
@@ -146,6 +150,10 @@ export default function ServicesPage() {
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                     <span className="text-zinc-300">Foam board and window graphics</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-zinc-300">And so much more</span>
                   </li>
                 </ul>
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors">
@@ -193,6 +201,10 @@ export default function ServicesPage() {
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                     <span className="text-zinc-300">Wide variety of promotional items</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-zinc-300">And so much more</span>
                   </li>
                 </ul>
                 <Link href="/contact" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors">

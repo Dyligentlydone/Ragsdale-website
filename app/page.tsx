@@ -39,7 +39,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex justify-center mb-8">
               <Image
-                src="/images /FULL LOGO.png"
+                src="/images /Hori Logo.png"
                 alt="Ragsdale Design Center"
                 width={280}
                 height={90}

@@ -71,7 +71,7 @@ export default function ContactPage() {
               <ul className="space-y-2 text-zinc-300">
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Project type and quantity needed</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Preferred size and materials</span></li>
-                <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>One or two sided</span></li>
+                <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>One- or two-sided</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Timeline and deadline</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Design files or reference images</span></li>
                 <li className="flex items-start gap-2"><span className="text-primary mt-1">•</span><span>Any special requirements</span></li>

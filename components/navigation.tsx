@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ArrowRight, ChevronDown, Shirt, Coffee, ShoppingBag, Smartphone, Pen, MoreHorizontal } from "lucide-react"
@@ -90,9 +90,33 @@ const promoCategories = [
 export function Navigation() {
   const pathname = usePathname()
   const [promoDropdownOpen, setPromoDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
   
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href)
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setPromoDropdownOpen(false)
+      }
+    }
+
+    if (promoDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [promoDropdownOpen])
 
   return (
     <>
@@ -124,12 +148,9 @@ export function Navigation() {
             })}
             
             {/* Promotional Products with dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => window.innerWidth >= 768 && setPromoDropdownOpen(true)}
-              onMouseLeave={() => window.innerWidth >= 768 && setPromoDropdownOpen(false)}
-            >
+            <div className="relative">
               <button
+                ref={buttonRef}
                 onClick={(e) => {
                   e.preventDefault()
                   setPromoDropdownOpen(!promoDropdownOpen)
@@ -148,12 +169,12 @@ export function Navigation() {
                 )}
               </button>
               
-              {/* Transparent bridge to prevent dropdown closing when moving mouse (desktop only) */}
-              <div className="hidden md:block absolute top-full left-0 right-0 h-4" />
-              
               {/* Detailed dropdown menu */}
               {promoDropdownOpen && (
-                <div className="fixed top-[60px] md:top-[80px] left-1/2 -translate-x-1/2 w-[calc(100vw-1rem)] md:w-[900px] md:max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl backdrop-blur-xl overflow-y-auto max-h-[80vh] p-4 md:p-6 z-[100]">
+                <div 
+                  ref={dropdownRef}
+                  className="fixed top-[60px] md:top-[80px] left-1/2 -translate-x-1/2 w-[calc(100vw-1rem)] md:w-[900px] md:max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl backdrop-blur-xl overflow-y-auto max-h-[80vh] p-4 md:p-6 z-[100]"
+                >
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                     {promoCategories.map((category) => {
                       return (

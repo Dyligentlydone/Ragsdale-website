@@ -153,7 +153,7 @@ export function Navigation() {
               
               {/* Detailed dropdown menu */}
               {promoDropdownOpen && (
-                <div className="absolute top-full mt-0 w-[calc(100vw-1rem)] md:w-[900px] md:max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl backdrop-blur-xl overflow-hidden p-4 md:p-6" style={{ left: '50%', transform: 'translateX(-50%)' }}>
+                <div className="fixed top-[60px] md:top-[80px] left-1/2 -translate-x-1/2 w-[calc(100vw-1rem)] md:w-[900px] md:max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl backdrop-blur-xl overflow-y-auto max-h-[80vh] p-4 md:p-6 z-[100]">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                     {promoCategories.map((category) => {
                       return (

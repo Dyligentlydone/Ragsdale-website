@@ -126,40 +126,44 @@ export function Navigation() {
             {/* Promotional Products with dropdown */}
             <div 
               className="relative"
-              onMouseEnter={() => setPromoDropdownOpen(true)}
-              onMouseLeave={() => setPromoDropdownOpen(false)}
+              onMouseEnter={() => window.innerWidth >= 768 && setPromoDropdownOpen(true)}
+              onMouseLeave={() => window.innerWidth >= 768 && setPromoDropdownOpen(false)}
             >
-              <Link
-                href="/promotional-products"
-                className={`relative px-2.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-colors flex items-center gap-1 ${
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setPromoDropdownOpen(!promoDropdownOpen)
+                }}
+                className={`relative px-2 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-colors flex items-center gap-1 ${
                   pathname === "/promotional-products"
                     ? "text-white bg-zinc-900"
                     : "text-zinc-400 hover:text-white"
                 }`}
               >
-                Promotional Products
+                <span className="hidden md:inline">Promotional Products</span>
+                <span className="md:hidden">Promo Materials</span>
                 <ChevronDown className="w-3 h-3" />
                 {pathname === "/promotional-products" && (
                   <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-1 w-1 rounded-full bg-primary" />
                 )}
-              </Link>
+              </button>
               
-              {/* Transparent bridge to prevent dropdown closing when moving mouse */}
-              <div className="absolute top-full left-0 right-0 h-4" />
+              {/* Transparent bridge to prevent dropdown closing when moving mouse (desktop only) */}
+              <div className="hidden md:block absolute top-full left-0 right-0 h-4" />
               
               {/* Detailed dropdown menu */}
               {promoDropdownOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[900px] max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl backdrop-blur-xl overflow-hidden p-6">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="absolute top-full mt-0 w-[calc(100vw-1rem)] md:w-[900px] md:max-w-[calc(100vw-2rem)] rounded-2xl border border-zinc-800 bg-zinc-950/95 shadow-2xl backdrop-blur-xl overflow-hidden p-4 md:p-6" style={{ left: '50%', transform: 'translateX(-50%)' }}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                     {promoCategories.map((category) => {
                       return (
                         <div
                           key={category.title}
-                          className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4 hover:border-primary/50 hover:bg-zinc-800/50 transition-all duration-300"
+                          className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-3 md:p-4 hover:border-primary/50 hover:bg-zinc-800/50 transition-all duration-300"
                         >
                           <div className="flex flex-col h-full">
-                            <div className="flex justify-center mb-3">
-                              <div className="w-20 h-20 rounded-lg overflow-hidden bg-zinc-800 flex items-center justify-center">
+                            <div className="flex justify-center mb-2 md:mb-3">
+                              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden bg-zinc-800 flex items-center justify-center">
                                 <img
                                   src={category.image}
                                   alt={category.title}
@@ -168,16 +172,16 @@ export function Navigation() {
                               </div>
                             </div>
                             
-                            <h3 className="text-base font-semibold text-white text-center mb-3">
+                            <h3 className="text-sm md:text-base font-semibold text-white text-center mb-2 md:mb-3">
                               {category.title}
                             </h3>
                             
-                            <ul className="space-y-1.5 mb-4 flex-1">
+                            <ul className="space-y-1 md:space-y-1.5 mb-3 md:mb-4 flex-1">
                               {category.subcategories.map((sub) => (
                                 <li key={sub.name}>
                                   <a
                                     href={sub.url}
-                                    className="text-xs text-zinc-400 hover:text-primary transition-colors block"
+                                    className="text-[10px] md:text-xs text-zinc-400 hover:text-primary transition-colors block"
                                   >
                                     {sub.name}
                                   </a>
@@ -187,10 +191,10 @@ export function Navigation() {
                             
                             <a
                               href={category.shopAllUrl}
-                              className="inline-flex items-center justify-center gap-1 w-full bg-primary text-white px-3 py-2 rounded-full text-xs font-medium hover:bg-primary/90 transition-colors"
+                              className="inline-flex items-center justify-center gap-1 w-full bg-primary text-white px-2 md:px-3 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-medium hover:bg-primary/90 transition-colors"
                             >
                               Shop All
-                              <ArrowRight className="w-3 h-3" />
+                              <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3" />
                             </a>
                           </div>
                         </div>

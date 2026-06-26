@@ -1041,7 +1041,9 @@ function NewEstimateSection() {
         {!breakdown && <p className="text-sm text-zinc-500">Fill out the product form to see pricing.</p>}
         {breakdown && (
           <div className="space-y-3">
-            {breakdown.lineItems.map((item) => (
+            {breakdown.lineItems
+              .filter((item) => Math.abs(item.amount) > 0)
+              .map((item) => (
               <div key={item.label} className="flex items-center justify-between text-sm">
                 <span className="text-zinc-400">{item.label}</span>
                 <span className="font-semibold">{currency.format(item.amount)}</span>

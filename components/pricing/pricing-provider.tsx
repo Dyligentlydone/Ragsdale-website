@@ -19,8 +19,6 @@ import {
 const STORAGE_KEY = "ragsdale-pricing-data"
 const API_ENDPOINT = "/api/pricing-state"
 
-const hasDatabase = Boolean(process.env.NEXT_PUBLIC_DATABASE_ENABLED ?? process.env.DATABASE_URL)
-
 const cloneData = <T,>(value: T): T => JSON.parse(JSON.stringify(value))
 
 const generateId = (prefix: string) => `${prefix}_${crypto.randomUUID()}`
@@ -70,6 +68,7 @@ const normalizeProductTemplate = (product: ProductTemplate): ProductTemplate => 
 
 const normalizeStore = (store: PricingDataStore): PricingDataStore => ({
   ...store,
+  settings: { ...defaultPricingData.settings, ...(store.settings ?? {}) },
   products: store.products.map((product) => normalizeProductTemplate(product)),
 })
 
@@ -78,28 +77,40 @@ const PricingContext = createContext<PricingContextValue | null>(null)
 export const PricingProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<PricingDataStore>(() => normalizeStore(cloneData(defaultPricingData)))
   const [hydrated, setHydrated] = useState(false)
+  // Whether the backend database is the source of truth. Detected from the
+  // API response rather than an env var, since env vars aren't available in
+  // the browser. Falls back to localStorage when no DB is configured.
+  const [usingDatabase, setUsingDatabase] = useState(false)
 
   useEffect(() => {
     const load = async () => {
-      if (hasDatabase) {
-        try {
-          const response = await fetch(API_ENDPOINT, { cache: "no-store" })
-          if (!response.ok) throw new Error("Failed to load pricing state")
+      try {
+        const response = await fetch(API_ENDPOINT, { cache: "no-store" })
+        if (response.ok) {
           const payload = await response.json()
-          setData(normalizeStore(payload.data))
-        } catch (error) {
-          console.error("Failed to load pricing data from API", error)
-          setData(normalizeStore(cloneData(defaultPricingData)))
-        }
-      } else {
-        const stored = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null
-        if (stored) {
-          try {
-            const parsed: PricingDataStore = JSON.parse(stored)
-            setData(normalizeStore(parsed))
-          } catch (error) {
-            console.error("Failed to parse stored pricing data", error)
+          if (payload?.persisted && payload?.data) {
+            setData(normalizeStore(payload.data))
+            setUsingDatabase(true)
+            setHydrated(true)
+            return
           }
+          if (payload?.data) {
+            // API responded but DB isn't configured; treat as non-persistent.
+            setData(normalizeStore(payload.data))
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load pricing data from API", error)
+      }
+
+      // Fall back to localStorage (no DB configured or API unavailable).
+      const stored = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null
+      if (stored) {
+        try {
+          const parsed: PricingDataStore = JSON.parse(stored)
+          setData(normalizeStore(parsed))
+        } catch (error) {
+          console.error("Failed to parse stored pricing data", error)
         }
       }
       setHydrated(true)
@@ -109,7 +120,7 @@ export const PricingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!hydrated) return
-    if (hasDatabase) {
+    if (usingDatabase) {
       const save = async () => {
         try {
           await fetch(API_ENDPOINT, {
@@ -125,7 +136,7 @@ export const PricingProvider = ({ children }: { children: ReactNode }) => {
     } else {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     }
-  }, [data, hydrated])
+  }, [data, hydrated, usingDatabase])
 
   const upsertById = <T extends { id: string }>(items: T[], incoming: Partial<T>, prefix: string): T[] => {
     if (incoming.id) {

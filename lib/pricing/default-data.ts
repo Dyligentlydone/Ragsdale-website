@@ -81,7 +81,7 @@ export const defaultPricingData: PricingDataStore = {
           type: "dropdown",
           optionsSource: { type: "materials", filterUnit: "sheet" },
           defaultValue: "mat_cardstock_gloss",
-          materialPricing: { mode: "per_sheet", quantityField: "quantity", piecesPerSheet: 10 },
+          materialPricing: { mode: "per_piece", quantityField: "quantity" },
         },
         {
           id: "sides",

@@ -977,12 +977,19 @@ function ProductsSection() {
 
 function NewEstimateSection() {
   const { data, saveEstimate } = usePricingData()
-  const [productId, setProductId] = useState<string>(data.products[0]?.id ?? "")
+  const [productId, setProductId] = useState<string>("")
   const [inputs, setInputs] = useState<Record<string, any>>({})
   const [customer, setCustomer] = useState({ name: "", company: "", notes: "", status: "draft" })
   const [saveState, setSaveState] = useState<{ status: "idle" | "saved"; timestamp?: number }>({ status: "idle" })
 
   const template = data.products.find((product) => product.id === productId)
+
+  useEffect(() => {
+    if (!productId) return
+    if (!data.products.some((product) => product.id === productId)) {
+      setProductId("")
+    }
+  }, [data.products, productId])
 
   const resolveDropdownOptions = (field: ProductField): DropdownOption[] => {
     if (field.type !== "dropdown") return []
@@ -1084,6 +1091,9 @@ function NewEstimateSection() {
                 onChange={(e) => setProductId(e.target.value)}
                 className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
               >
+                <option value="" disabled>
+                  Select a product
+                </option>
                 {data.products.map((product) => (
                   <option key={product.id} value={product.id}>
                     {product.name}
@@ -1107,56 +1117,64 @@ function NewEstimateSection() {
             </label>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <input
-              placeholder="Customer name"
-              value={customer.name}
-              onChange={(e) => setCustomer((prev) => ({ ...prev, name: e.target.value }))}
-              className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
-            />
-            <input
-              placeholder="Company"
-              value={customer.company}
-              onChange={(e) => setCustomer((prev) => ({ ...prev, company: e.target.value }))}
-              className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
-            />
-          </div>
+          {template ? (
+            <>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <input
+                  placeholder="Customer name"
+                  value={customer.name}
+                  onChange={(e) => setCustomer((prev) => ({ ...prev, name: e.target.value }))}
+                  className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
+                />
+                <input
+                  placeholder="Company"
+                  value={customer.company}
+                  onChange={(e) => setCustomer((prev) => ({ ...prev, company: e.target.value }))}
+                  className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
+                />
+              </div>
 
-          <div className="space-y-4">
-            {template?.fields.map((field) => (
-              <DynamicFieldInput
-                key={field.id}
-                field={field}
-                value={inputs[field.name]}
-                onChange={(value) => updateField(field.name, value)}
-                options={field.type === "dropdown" ? resolveDropdownOptions(field) : undefined}
+              <div className="space-y-4">
+                {template.fields.map((field) => (
+                  <DynamicFieldInput
+                    key={field.id}
+                    field={field}
+                    value={inputs[field.name]}
+                    onChange={(value) => updateField(field.name, value)}
+                    options={field.type === "dropdown" ? resolveDropdownOptions(field) : undefined}
+                  />
+                ))}
+              </div>
+
+              <textarea
+                rows={3}
+                placeholder="Internal notes"
+                value={customer.notes}
+                onChange={(e) => setCustomer((prev) => ({ ...prev, notes: e.target.value }))}
+                className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
               />
-            ))}
-          </div>
 
-          <textarea
-            rows={3}
-            placeholder="Internal notes"
-            value={customer.notes}
-            onChange={(e) => setCustomer((prev) => ({ ...prev, notes: e.target.value }))}
-            className="w-full rounded-2xl border border-zinc-800 bg-zinc-900/50 px-4 py-3"
-          />
-
-          <div className="flex justify-end">
-            <button onClick={save} disabled={!breakdown} className="rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white disabled:opacity-40">
-              Save Estimate
-            </button>
-          </div>
-          {saveState.status === "saved" && (
-            <p className="text-sm text-emerald-400 text-right">Estimate saved.</p>
+              <div className="flex justify-end">
+                <button onClick={save} disabled={!breakdown} className="rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white disabled:opacity-40">
+                  Save Estimate
+                </button>
+              </div>
+              {saveState.status === "saved" && (
+                <p className="text-sm text-emerald-400 text-right">Estimate saved.</p>
+              )}
+            </>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-zinc-900 bg-black/20 p-6 text-sm text-zinc-500">
+              Select a product above to load its input fields.
+            </div>
           )}
         </div>
       </div>
 
       <div className="rounded-3xl border border-zinc-900 bg-black/60 p-6 space-y-4">
         <h3 className="text-lg font-semibold">Cost Breakdown</h3>
-        {!breakdown && <p className="text-sm text-zinc-500">Fill out the product form to see pricing.</p>}
-        {breakdown && (
+        {!template && <p className="text-sm text-zinc-500">Select a product to calculate a quote.</p>}
+        {template && breakdown && (
           <div className="space-y-3">
             {breakdown.lineItems
               .filter((item) => Math.abs(item.amount) > 0.004)

@@ -102,7 +102,7 @@ export const defaultPricingData: PricingDataStore = {
           {
             id: "bc_material",
             materialField: "paper",
-            quantity: { type: "field", fieldName: "quantity", multiplier: 0.0025 },
+            quantity: { type: "field", fieldName: "quantity", multiplier: 1 },
           },
         ],
         labor: [

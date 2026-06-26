@@ -81,6 +81,7 @@ export const defaultPricingData: PricingDataStore = {
           type: "dropdown",
           optionsSource: { type: "materials", filterUnit: "sheet" },
           defaultValue: "mat_cardstock_gloss",
+          materialPricing: { mode: "per_sheet", quantityField: "quantity", piecesPerSheet: 10 },
         },
         {
           id: "sides",
@@ -98,13 +99,6 @@ export const defaultPricingData: PricingDataStore = {
         { id: "rush", name: "rush", label: "Rush Order", type: "checkbox", defaultValue: false },
       ],
       pricingRules: {
-        materials: [
-          {
-            id: "bc_material",
-            materialField: "paper",
-            quantity: { type: "field", fieldName: "quantity", multiplier: 1 },
-          },
-        ],
         labor: [
           {
             id: "bc_design",
@@ -151,6 +145,7 @@ export const defaultPricingData: PricingDataStore = {
           type: "dropdown",
           optionsSource: { type: "materials", filterUnit: "square_foot" },
           defaultValue: "mat_banner_13oz",
+          materialPricing: { mode: "per_area", dimensionField: "banner_dimensions" },
         },
         { id: "double_sided", name: "double_sided", label: "Double Sided", type: "checkbox", defaultValue: false },
         { id: "grommets", name: "grommets", label: "Grommets", type: "checkbox", defaultValue: true },
@@ -159,13 +154,6 @@ export const defaultPricingData: PricingDataStore = {
         { id: "rush", name: "rush", label: "Rush Order", type: "checkbox", defaultValue: false },
       ],
       pricingRules: {
-        materials: [
-          {
-            id: "banner_vinyl",
-            materialField: "banner_material",
-            quantity: { type: "dimensions", fieldName: "banner_dimensions", multiplier: 1, convertTo: "square_foot" },
-          },
-        ],
         labor: [
           {
             id: "banner_print",

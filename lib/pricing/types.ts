@@ -76,6 +76,19 @@ export interface DropdownField extends ProductFieldBase {
     type: "materials"
     filterUnit?: UnitType
   }
+  materialPricing?: MaterialPricing
+}
+
+export type MaterialCostMode = "per_piece" | "per_sheet" | "per_area"
+
+export interface MaterialPricing {
+  mode: MaterialCostMode
+  // Field whose numeric value is the piece quantity (per_piece, per_sheet)
+  quantityField?: string
+  // Number of finished pieces that fit on one sheet (per_sheet)
+  piecesPerSheet?: number
+  // Dimension field used for area-based pricing (per_area)
+  dimensionField?: string
 }
 
 export interface NumberField extends ProductFieldBase {
@@ -125,10 +138,17 @@ export interface QuantitySourceFixed {
   value: number
 }
 
+export interface QuantitySourceSheet {
+  type: "sheet"
+  fieldName: string
+  piecesPerSheet: number
+}
+
 export type QuantitySource =
   | QuantitySourceField
   | QuantitySourceDimensions
   | QuantitySourceFixed
+  | QuantitySourceSheet
 
 export interface MaterialRule {
   id: string

@@ -1,4 +1,5 @@
 import {
+  DropdownField,
   EstimateInputValues,
   PricingBreakdown,
   PricingDataStore,
@@ -6,6 +7,14 @@ import {
   ProductTemplate,
   QuantitySource,
 } from "./types"
+
+const resolveMaterialIdFromValue = (value: unknown): string | undefined => {
+  if (!value) return undefined
+  if (typeof value === "object") {
+    return (value as any).materialId ?? (value as any).value ?? undefined
+  }
+  return value as string
+}
 
 const toNumber = (value: unknown): number => {
   if (typeof value === "number") return value
@@ -44,6 +53,12 @@ const resolveQuantity = (source: QuantitySource, inputs: EstimateInputValues): n
     return source.value
   }
 
+  if (source.type === "sheet") {
+    const pieces = resolveQuantityFromValue(inputs[source.fieldName])
+    const perSheet = source.piecesPerSheet > 0 ? source.piecesPerSheet : 1
+    return Math.ceil(pieces / perSheet)
+  }
+
   return 0
 }
 
@@ -54,21 +69,46 @@ interface CalculateParams {
 }
 
 export const calculatePricing = ({ template, inputs, store }: CalculateParams): PricingBreakdown => {
-  const materialCost = (template.pricingRules.materials ?? []).reduce((sum, rule) => {
+  // Field-driven material pricing: each dropdown linked to a material can
+  // declare how its cost is computed (per piece, per sheet, or per area).
+  const fieldsWithPricing = template.fields.filter(
+    (field): field is DropdownField => field.type === "dropdown" && Boolean((field as DropdownField).materialPricing),
+  )
+
+  const fieldMaterialCost = fieldsWithPricing.reduce((sum, field) => {
+    const pricing = field.materialPricing!
+    const materialId = resolveMaterialIdFromValue(inputs[field.name])
+    const material = store.materials.find((m) => m.id === materialId)
+    if (!material || !material.active) return sum
+
+    let units = 0
+    if (pricing.mode === "per_piece") {
+      const qty = pricing.quantityField ? resolveQuantityFromValue(inputs[pricing.quantityField]) : 0
+      units = qty
+    } else if (pricing.mode === "per_sheet") {
+      const qty = pricing.quantityField ? resolveQuantityFromValue(inputs[pricing.quantityField]) : 0
+      const perSheet = (pricing.piecesPerSheet ?? 1) > 0 ? pricing.piecesPerSheet ?? 1 : 1
+      units = Math.ceil(qty / perSheet)
+    } else if (pricing.mode === "per_area") {
+      units = pricing.dimensionField ? resolveQuantityFromValue(inputs[pricing.dimensionField]) : 0
+    }
+    return sum + units * material.costPerUnit
+  }, 0)
+
+  // Legacy rule-based material pricing. Skip any rule whose field already has
+  // field-driven pricing to avoid double counting.
+  const fieldNamesWithPricing = new Set(fieldsWithPricing.map((field) => field.name))
+  const legacyMaterialCost = (template.pricingRules.materials ?? []).reduce((sum, rule) => {
+    if (rule.materialField && fieldNamesWithPricing.has(rule.materialField)) return sum
     const fieldValue = rule.materialField ? inputs[rule.materialField] : undefined
-    const materialIdFromField = (() => {
-      if (!fieldValue) return undefined
-      if (typeof fieldValue === "object") {
-        return fieldValue.materialId ?? fieldValue.value ?? undefined
-      }
-      return fieldValue
-    })()
-    const targetMaterialId = rule.materialId ?? materialIdFromField
+    const targetMaterialId = rule.materialId ?? resolveMaterialIdFromValue(fieldValue)
     const material = store.materials.find((m) => m.id === targetMaterialId)
     if (!material || !material.active) return sum
     const quantity = resolveQuantity(rule.quantity, inputs)
     return sum + quantity * material.costPerUnit
   }, 0)
+
+  const materialCost = fieldMaterialCost + legacyMaterialCost
 
   const laborCost = (template.pricingRules.labor ?? []).reduce((sum, rule) => {
     const labor = store.labor.find((l) => l.id === rule.laborId)

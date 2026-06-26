@@ -473,10 +473,22 @@ function ResourceSection<T extends { id: string }>({
 }
 
 function PricingSettingsSection() {
-  const { data, updateSettings } = usePricingData()
+  const { data, updateSettings, resetData } = usePricingData()
 
   const handleChange = (field: keyof typeof data.settings, value: number) => {
     updateSettings({ [field]: value })
+  }
+
+  const handleReset = () => {
+    if (
+      typeof window !== "undefined" &&
+      !window.confirm(
+        "Reset ALL pricing data (materials, labor, machines, products, settings) back to defaults? Saved estimates will also be cleared. This cannot be undone.",
+      )
+    ) {
+      return
+    }
+    resetData()
   }
 
   const fields: Array<{ key: keyof typeof data.settings; label: string; prefix?: string; suffix?: string }> = [
@@ -491,9 +503,17 @@ function PricingSettingsSection() {
 
   return (
     <section>
-      <header className="mb-6">
-        <h2 className="text-2xl font-semibold">Pricing Settings</h2>
-        <p className="text-sm text-zinc-500">Global defaults applied across every estimate.</p>
+      <header className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold">Pricing Settings</h2>
+          <p className="text-sm text-zinc-500">Global defaults applied across every estimate.</p>
+        </div>
+        <button
+          onClick={handleReset}
+          className="inline-flex items-center gap-2 self-start rounded-full border border-red-500/40 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-200 hover:bg-red-500/20"
+        >
+          Reset to Defaults
+        </button>
       </header>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -830,6 +850,94 @@ function ProductsSection() {
                             )
                           })}
                         </div>
+                      </div>
+                    )}
+
+                    {field.type === "dropdown" && (
+                      <div className="rounded-2xl border border-zinc-900 bg-black/30 p-3 space-y-3">
+                        <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Material Pricing</p>
+                        {(() => {
+                          const pricing = (field as DropdownField).materialPricing
+                          const numericFields = draft.fields.filter(
+                            (f) => f.type === "number" || f.type === "quantity",
+                          )
+                          const dimensionFields = draft.fields.filter((f) => f.type === "dimensions")
+                          const setPricing = (updates: Partial<NonNullable<DropdownField["materialPricing"]>>) =>
+                            updateField(field.id, {
+                              materialPricing: {
+                                mode: pricing?.mode ?? "per_piece",
+                                quantityField: pricing?.quantityField,
+                                piecesPerSheet: pricing?.piecesPerSheet,
+                                dimensionField: pricing?.dimensionField,
+                                ...updates,
+                              },
+                            } as Partial<ProductField>)
+                          return (
+                            <div className="grid gap-3 md:grid-cols-3">
+                              <label className="space-y-1 text-xs">
+                                <span className="text-zinc-500">Cost Mode</span>
+                                <select
+                                  value={pricing?.mode ?? "per_piece"}
+                                  onChange={(e) => setPricing({ mode: e.target.value as "per_piece" | "per_sheet" | "per_area" })}
+                                  className="w-full rounded-xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm"
+                                >
+                                  <option value="per_piece">Per piece (cost × qty)</option>
+                                  <option value="per_sheet">Per sheet (qty ÷ per-sheet)</option>
+                                  <option value="per_area">Per area (sq ft)</option>
+                                </select>
+                              </label>
+
+                              {(pricing?.mode ?? "per_piece") !== "per_area" && (
+                                <label className="space-y-1 text-xs">
+                                  <span className="text-zinc-500">Quantity Field</span>
+                                  <select
+                                    value={pricing?.quantityField ?? ""}
+                                    onChange={(e) => setPricing({ quantityField: e.target.value })}
+                                    className="w-full rounded-xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm"
+                                  >
+                                    <option value="">Select field</option>
+                                    {numericFields.map((f) => (
+                                      <option key={f.id} value={f.name}>
+                                        {f.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </label>
+                              )}
+
+                              {pricing?.mode === "per_sheet" && (
+                                <label className="space-y-1 text-xs">
+                                  <span className="text-zinc-500">Pieces / Sheet</span>
+                                  <input
+                                    type="number"
+                                    min={1}
+                                    value={pricing?.piecesPerSheet ?? 1}
+                                    onChange={(e) => setPricing({ piecesPerSheet: Number(e.target.value) })}
+                                    className="w-full rounded-xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm"
+                                  />
+                                </label>
+                              )}
+
+                              {pricing?.mode === "per_area" && (
+                                <label className="space-y-1 text-xs">
+                                  <span className="text-zinc-500">Dimension Field</span>
+                                  <select
+                                    value={pricing?.dimensionField ?? ""}
+                                    onChange={(e) => setPricing({ dimensionField: e.target.value })}
+                                    className="w-full rounded-xl border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm"
+                                  >
+                                    <option value="">Select field</option>
+                                    {dimensionFields.map((f) => (
+                                      <option key={f.id} value={f.name}>
+                                        {f.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </label>
+                              )}
+                            </div>
+                          )
+                        })()}
                       </div>
                     )}
                   </div>

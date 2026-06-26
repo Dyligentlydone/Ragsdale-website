@@ -1,0 +1,205 @@
+import { PricingDataStore } from "./types"
+
+export const defaultPricingData: PricingDataStore = {
+  materials: [
+    {
+      id: "mat_banner_13oz",
+      name: "13 oz Banner Vinyl",
+      unit: "square_foot",
+      costPerUnit: 1.85,
+      notes: "Outdoor rated",
+      active: true,
+    },
+    {
+      id: "mat_banner_18oz",
+      name: "18 oz Banner Vinyl",
+      unit: "square_foot",
+      costPerUnit: 2.4,
+      notes: "Premium heavy duty",
+      active: true,
+    },
+    {
+      id: "mat_cardstock_gloss",
+      name: "Gloss Cardstock",
+      unit: "sheet",
+      costPerUnit: 0.18,
+      active: true,
+    },
+    {
+      id: "mat_cardstock_matte",
+      name: "Matte Cardstock",
+      unit: "sheet",
+      costPerUnit: 0.2,
+      active: true,
+    },
+    {
+      id: "mat_cardstock_soft",
+      name: "Soft Touch Cardstock",
+      unit: "sheet",
+      costPerUnit: 0.35,
+      active: true,
+    },
+    {
+      id: "mat_sticker_vinyl",
+      name: "Sticker Vinyl",
+      unit: "square_foot",
+      costPerUnit: 2.5,
+      active: true,
+    },
+  ],
+  labor: [
+    { id: "lab_design", name: "Design", hourlyRate: 85 },
+    { id: "lab_printing", name: "Printing", hourlyRate: 55 },
+    { id: "lab_install", name: "Installation", hourlyRate: 95 },
+  ],
+  machines: [
+    { id: "mac_printer", name: "Large Format Printer", hourlyCost: 35 },
+    { id: "mac_press", name: "Digital Press", hourlyCost: 42 },
+    { id: "mac_laminator", name: "Laminator", hourlyCost: 25 },
+  ],
+  settings: {
+    setupFee: 25,
+    rushFee: 65,
+    minimumCharge: 45,
+    markupPercent: 35,
+    wastePercent: 8,
+    taxPercent: 6,
+    deliveryFee: 35,
+  },
+  products: [
+    {
+      id: "prod_business_cards",
+      name: "Business Cards",
+      description: "Standard 3.5 x 2 in cards",
+      active: true,
+      fields: [
+        { id: "quantity", name: "quantity", label: "Quantity", type: "quantity", required: true, defaultValue: 250 },
+        {
+          id: "paper",
+          name: "paper",
+          label: "Paper Stock",
+          type: "dropdown",
+          optionsSource: { type: "materials", filterUnit: "sheet" },
+          defaultValue: "mat_cardstock_gloss",
+        },
+        {
+          id: "sides",
+          name: "sides",
+          label: "Sides",
+          type: "dropdown",
+          options: [
+            { label: "Single Sided", value: "single" },
+            { label: "Double Sided", value: "double" },
+          ],
+          defaultValue: "double",
+        },
+        { id: "rounded", name: "rounded", label: "Rounded Corners", type: "checkbox", defaultValue: false },
+        { id: "design", name: "design", label: "Design Assistance", type: "checkbox", defaultValue: false },
+        { id: "rush", name: "rush", label: "Rush Order", type: "checkbox", defaultValue: false },
+      ],
+      pricingRules: {
+        materials: [
+          {
+            id: "bc_material",
+            materialField: "paper",
+            quantity: { type: "field", fieldName: "quantity", multiplier: 0.0025 },
+          },
+        ],
+        labor: [
+          {
+            id: "bc_design",
+            laborId: "lab_design",
+            baseHours: 0,
+            hoursPerUnit: 0.001,
+            quantityField: "quantity",
+          },
+        ],
+        machines: [
+          {
+            id: "bc_press",
+            machineId: "mac_press",
+            baseHours: 0.1,
+            hoursPerUnit: 0.0005,
+            quantityField: "quantity",
+          },
+        ],
+        fees: {
+          includeSetupFee: true,
+          includeRushField: "rush",
+          taxable: true,
+        },
+      },
+    },
+    {
+      id: "prod_banner",
+      name: "Banner",
+      description: "Custom size vinyl banners",
+      active: true,
+      fields: [
+        {
+          id: "banner_dimensions",
+          name: "banner_dimensions",
+          label: "Dimensions (inches)",
+          type: "dimensions",
+          required: true,
+          helpText: "Width x height",
+        },
+        {
+          id: "banner_material",
+          name: "banner_material",
+          label: "Material",
+          type: "dropdown",
+          optionsSource: { type: "materials", filterUnit: "square_foot" },
+          defaultValue: "mat_banner_13oz",
+        },
+        { id: "double_sided", name: "double_sided", label: "Double Sided", type: "checkbox", defaultValue: false },
+        { id: "grommets", name: "grommets", label: "Grommets", type: "checkbox", defaultValue: true },
+        { id: "wind_slits", name: "wind_slits", label: "Wind Slits", type: "checkbox", defaultValue: false },
+        { id: "installation", name: "installation", label: "Installation", type: "checkbox", defaultValue: false },
+        { id: "rush", name: "rush", label: "Rush Order", type: "checkbox", defaultValue: false },
+      ],
+      pricingRules: {
+        materials: [
+          {
+            id: "banner_vinyl",
+            materialField: "banner_material",
+            quantity: { type: "dimensions", fieldName: "banner_dimensions", multiplier: 1, convertTo: "square_foot" },
+          },
+        ],
+        labor: [
+          {
+            id: "banner_print",
+            laborId: "lab_printing",
+            baseHours: 0.25,
+            hoursPerUnit: 0.02,
+            quantityField: "banner_dimensions",
+          },
+          { id: "banner_install", laborId: "lab_install", baseHours: 1, hoursPerUnit: 0, quantityField: "installation" },
+        ],
+        machines: [
+          {
+            id: "banner_printer",
+            machineId: "mac_printer",
+            baseHours: 0.2,
+            hoursPerUnit: 0.015,
+            quantityField: "banner_dimensions",
+          },
+          {
+            id: "banner_lam",
+            machineId: "mac_laminator",
+            baseHours: 0,
+            hoursPerUnit: 0.01,
+            quantityField: "banner_dimensions",
+          },
+        ],
+        fees: {
+          includeSetupFee: true,
+          includeDeliveryFee: true,
+          includeRushField: "rush",
+          taxable: true,
+        },
+      },
+    },
+  ],
+  estimates: [],
+}

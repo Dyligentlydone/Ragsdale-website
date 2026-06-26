@@ -539,21 +539,23 @@ function PricingSettingsSection() {
 
 function ProductsSection() {
   const { data, upsertProduct, deleteProduct } = usePricingData()
-  const [selectedId, setSelectedId] = useState<string | null>(data.products[0]?.id ?? null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
   const [draft, setDraft] = useState<ProductTemplate | null>(null)
   const [newFieldName, setNewFieldName] = useState("")
+  const [templateSaveState, setTemplateSaveState] = useState<"idle" | "saved">("idle")
   const [addingField, setAddingField] = useState(false)
-
-  useEffect(() => {
-    if (!selectedId && data.products[0]) {
-      setSelectedId(data.products[0].id)
-    }
-  }, [data.products, selectedId])
 
   useEffect(() => {
     const template = data.products.find((product) => product.id === selectedId) ?? null
     setDraft(template ? structuredClone(template) : null)
   }, [selectedId, data.products])
+
+  useEffect(() => {
+    if (!selectedId) return
+    if (!data.products.some((product) => product.id === selectedId)) {
+      setSelectedId(null)
+    }
+  }, [data.products, selectedId])
 
   const handleFieldChange = (field: Partial<ProductTemplate>) => {
     if (!draft) return
@@ -630,6 +632,8 @@ function ProductsSection() {
   const saveProduct = () => {
     if (!draft) return
     upsertProduct(draft)
+    setTemplateSaveState("saved")
+    setTimeout(() => setTemplateSaveState("idle"), 2000)
   }
 
   return (
@@ -673,7 +677,11 @@ function ProductsSection() {
       </div>
 
       <div className="rounded-3xl border border-zinc-900 bg-black/30 p-6 min-h-[480px]">
-        {!draft && <p className="text-sm text-zinc-500">Select a product to edit its template.</p>}
+        {!draft && (
+          <div className="flex h-full items-center justify-center text-sm text-zinc-500">
+            Select a template from the list to view and edit its fields.
+          </div>
+        )}
         {draft && (
           <div className="space-y-6">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
@@ -959,6 +967,7 @@ function ProductsSection() {
                 Delete Template
               </button>
             </div>
+            {templateSaveState === "saved" && <p className="text-sm text-emerald-400">Template saved.</p>}
           </div>
         )}
       </div>
@@ -1149,15 +1158,14 @@ function NewEstimateSection() {
         {!breakdown && <p className="text-sm text-zinc-500">Fill out the product form to see pricing.</p>}
         {breakdown && (
           <div className="space-y-3">
-            {breakdown.lineItems.map((item) => (
-              <div
-                key={item.label}
-                className={`flex items-center justify-between text-sm ${Math.abs(item.amount) < 0.005 ? "text-zinc-600" : "text-white"}`}
-              >
-                <span className="text-zinc-400">{item.label}</span>
-                <span className="font-semibold">{currency.format(item.amount)}</span>
-              </div>
-            ))}
+            {breakdown.lineItems
+              .filter((item) => Math.abs(item.amount) > 0.004)
+              .map((item) => (
+                <div key={item.label} className="flex items-center justify-between text-sm">
+                  <span className="text-zinc-400">{item.label}</span>
+                  <span className="font-semibold">{currency.format(item.amount)}</span>
+                </div>
+              ))}
             <div className="border-t border-zinc-900 pt-4">
               <div className="flex items-center justify-between text-lg font-semibold">
                 <span>Total</span>

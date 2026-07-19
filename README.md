@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment Variables
+
+Create a `.env.local` file (not committed) with the following keys:
+
+```bash
+RESEND_API_KEY=your_resend_key
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
+TURNSTILE_SECRET_KEY=your_turnstile_secret_key
+```
+
+Restart `next dev` whenever these values change. The site key is safe to expose to the browser, while the secret key must stay server-side for verification in `/api/contact`.
+
 ## Getting Started
 
 First, run the development server:

@@ -6,6 +6,56 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
 
+    const turnstileToken = formData.get("turnstileToken") as string | null
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY
+
+    if (!turnstileSecret) {
+      console.error("Turnstile secret key missing")
+      return NextResponse.json(
+        { error: "Verification service not configured" },
+        { status: 500 }
+      )
+    }
+
+    if (!turnstileToken) {
+      return NextResponse.json(
+        { error: "Verification token missing" },
+        { status: 400 }
+      )
+    }
+
+    const clientIp =
+      request.headers.get("cf-connecting-ip") ||
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim()
+
+    const turnstileResponse = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          secret: turnstileSecret,
+          response: turnstileToken,
+          ...(clientIp ? { remoteip: clientIp } : {}),
+        }),
+      }
+    )
+
+    const turnstileResult = (await turnstileResponse.json()) as {
+      success: boolean
+      "error-codes"?: string[]
+    }
+
+    if (!turnstileResult.success) {
+      console.warn("Turnstile verification failed", turnstileResult["error-codes"])
+      return NextResponse.json(
+        { error: "Verification failed" },
+        { status: 400 }
+      )
+    }
+
     const name = formData.get("name") as string
     const email = formData.get("email") as string
     const phone = formData.get("phone") as string

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { Turnstile } from "@marsidev/react-turnstile"
 
 interface UploadedFile {
   file: File
@@ -25,6 +26,10 @@ export function ContactForm() {
   const [files, setFiles] = useState<UploadedFile[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [turnstileError, setTurnstileError] = useState<string | null>(null)
+  const [turnstileKey, setTurnstileKey] = useState(0)
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = acceptedFiles.map((file) => ({
@@ -59,10 +64,21 @@ export function ContactForm() {
     })
   }
 
+  const resetTurnstile = () => {
+    setTurnstileToken(null)
+    setTurnstileKey((prev) => prev + 1)
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!turnstileToken) {
+      setTurnstileError("Please verify that you're human before sending your message.")
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitStatus("idle")
+    setTurnstileError(null)
 
     try {
       const formDataToSend = new FormData()
@@ -74,6 +90,8 @@ export function ContactForm() {
       files.forEach((uploadedFile) => {
         formDataToSend.append("files", uploadedFile.file)
       })
+
+      formDataToSend.append("turnstileToken", turnstileToken)
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -94,9 +112,12 @@ export function ContactForm() {
         message: "",
       })
       setFiles([])
+      resetTurnstile()
     } catch (error) {
       console.error("Error submitting form:", error)
       setSubmitStatus("error")
+      setTurnstileError("Verification failed. Please refresh the widget and try again.")
+      resetTurnstile()
     } finally {
       setIsSubmitting(false)
     }
@@ -276,9 +297,40 @@ export function ContactForm() {
         </div>
       )}
 
+      {turnstileSiteKey ? (
+        <div className="space-y-2">
+          <Turnstile
+            key={turnstileKey}
+            siteKey={turnstileSiteKey}
+            onSuccess={(token) => {
+              setTurnstileToken(token)
+              setTurnstileError(null)
+            }}
+            onError={() => {
+              setTurnstileError("We couldn't verify you. Please try again.")
+              resetTurnstile()
+            }}
+            onExpire={() => {
+              setTurnstileError("Verification expired. Please try again.")
+              resetTurnstile()
+            }}
+            options={{ theme: "dark", action: "contact_form" }}
+          />
+          {turnstileError && (
+            <p className="text-sm text-red-400" aria-live="assertive">
+              {turnstileError}
+            </p>
+          )}
+        </div>
+      ) : (
+        <p className="text-sm text-amber-400">
+          Turnstile site key is missing. Please set NEXT_PUBLIC_TURNSTILE_SITE_KEY in your environment.
+        </p>
+      )}
+
       <Button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !turnstileToken}
         className="w-full bg-primary hover:bg-primary/90 text-white h-12 text-lg rounded-full"
       >
         {isSubmitting ? (

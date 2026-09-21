@@ -9,6 +9,30 @@ export const metadata = {
 
 const blogPosts = [
   {
+    slug: "how-to-choose-the-right-business-cards-for-your-brand",
+    title: "How to Choose the Right Business Cards for Your Brand",
+    excerpt: "Business cards may be small, but they can say a lot about your business. Learn how to choose the right cardstock, finish, and design to make a lasting impression.",
+    date: "September 21, 2025",
+    readTime: "6 min read",
+    category: "Business Cards"
+  },
+  {
+    slug: "5-ways-banners-and-signs-can-help-your-business-get-noticed",
+    title: "5 Ways Banners and Signs Can Help Your Business Get Noticed",
+    excerpt: "Your customers can't choose your business if they don't know you're there. Discover how custom signs and banners can increase visibility and drive more foot traffic.",
+    date: "September 21, 2025",
+    readTime: "6 min read",
+    category: "Marketing"
+  },
+  {
+    slug: "why-choose-a-local-print-shop-in-rockford-michigan",
+    title: "Why Choose a Local Print Shop in Rockford, Michigan?",
+    excerpt: "Online printing is convenient, but working with a local print shop means personal attention, faster communication, and the ability to see and feel your options before you commit.",
+    date: "September 19, 2025",
+    readTime: "5 min read",
+    category: "Local Business"
+  },
+  {
     slug: "trade-show-success-starts-with-strong-print",
     title: "Trade Show Success Starts with Strong Print",
     excerpt: "Trade shows are one of the most powerful marketing opportunities. Learn how high-quality print materials can help you stand out, generate leads, and make lasting impressions in competitive expo environments.",

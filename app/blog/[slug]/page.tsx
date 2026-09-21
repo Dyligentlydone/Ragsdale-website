@@ -8,21 +8,215 @@ const blogPosts: Record<string, any> = {
     date: "September 19, 2025",
     readTime: "5 min read",
     category: "Local Business",
-    content: `<p>When you need business cards, flyers, banners, promotional materials, or other printed products, it can be tempting to order everything online.</p><p>After all, online printing companies make it easy to upload a file, click a button, and wait for a box to arrive.</p><p>But printing isn't always just about getting something made.</p><p>Sometimes, it's about getting it right.</p><p>That's where working with a local print shop in Rockford, Michigan can make a difference.</p><h2>Local Printing Comes With a Human Touch</h2><p>When you work with a local print and design center, you're working with real people who can look at your project, understand what you're trying to accomplish, and help you make better decisions.</p><p>Maybe the colors in your file aren't going to reproduce the way you expected.</p><p>Maybe your business card would look better on a heavier stock.</p><p>Maybe the banner you're designing needs a different layout to make the message easier to read from a distance.</p><p>These are the kinds of details that can be easy to overlook when you're simply uploading a file to an online printer.</p><p>At Ragsdale Design Center, we believe those details matter. Every project gets personal attention from file to finish because great printing isn't just about putting ink on paper.</p><h2>Faster Communication When You Need It</h2><p>One of the biggest advantages of working with a local print shop is simple: you can talk to the people actually handling your project.</p><p>Need to make a change?</p><p>Have a question about paper?</p><p>Not sure which finish to choose?</p><p>Need help getting a file ready for print?</p><p>Instead of navigating a massive online ordering system, you can work directly with a local team.</p><p>That can make the entire process easier, especially when you're working on an important business project or you're on a deadline.</p><h2>See the Difference in Person</h2><p>There's also something valuable about being able to see and feel your options.</p><p>Paper weight, texture, finishes, colors, and materials can be difficult to judge on a computer screen.</p><p>A premium business card can feel completely different from a standard card.</p><p>A matte finish can create a different impression than gloss.</p><p>A large-format banner needs to be considered differently than a flyer that someone holds in their hands.</p><p>Being able to discuss those options with someone who works with printed materials every day can help you choose the right solution for your project.</p><h2>Printing Is Part of Your Brand</h2><p>Your printed materials are often an extension of your business.</p><p>A business card is exchanged during a conversation.</p><p>A brochure may be sitting on a customer's desk for weeks.</p><p>A banner might be the first thing someone notices when they walk into an event.</p><p>A promotional item can keep your business in front of a customer long after the initial interaction.</p><p>Quality matters because these physical materials can become part of the way people experience your brand.</p><p>That's why we focus on more than simply producing a finished product. We want the final piece to look intentional, professional, and representative of the business behind it.</p><h2>A Rockford Print Shop for Business &amp; Personal Projects</h2><p>Ragsdale Design Center serves Rockford, Michigan with professional printing and design services for both businesses and individuals.</p><p>From business cards and marketing materials to banners, signage, promotional products, invitations, and specialty printing, we're here to help bring your project from an idea to something you can hold in your hands.</p><p>If you're looking for a local print shop in Rockford, we'd love to see what you're working on.</p><p><strong>Ready to start your next project? Get in touch with Ragsdale Design Center and let's create something worth keeping.</strong></p>`
+    content: `<p>When you need business cards, flyers, banners, promotional materials, or other printed products, it can be tempting to order everything online.</p>
+<p>After all, online printing companies make it easy to upload a file, click a button, and wait for a box to arrive.</p>
+<p>But printing isn't always just about getting something made.</p>
+<blockquote><p>Sometimes, it's about getting it right.</p></blockquote>
+<p>That's where working with a local print shop in Rockford, Michigan can make a difference.</p>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>Local Printing Comes With a Human Touch</h2>
+<p>When you work with a local print and design center, you're working with real people who can look at your project, understand what you're trying to accomplish, and help you make better decisions.</p>
+<div class="blog-highlight">
+<p>Maybe the colors in your file aren't going to reproduce the way you expected.</p>
+<p>Maybe your business card would look better on a heavier stock.</p>
+<p>Maybe the banner you're designing needs a different layout to make the message easier to read from a distance.</p>
+</div>
+<p>These are the kinds of details that can be easy to overlook when you're simply uploading a file to an online printer.</p>
+<p>At Ragsdale Design Center, we believe those details matter. Every project gets personal attention from file to finish because great printing isn't just about putting ink on paper.</p>
+
+<h2>Faster Communication When You Need It</h2>
+<p>One of the biggest advantages of working with a local print shop is simple: <strong>you can talk to the people actually handling your project.</strong></p>
+<div class="blog-highlight">
+<p>Need to make a change?</p>
+<p>Have a question about paper?</p>
+<p>Not sure which finish to choose?</p>
+<p>Need help getting a file ready for print?</p>
+</div>
+<p>Instead of navigating a massive online ordering system, you can work directly with a local team.</p>
+<p>That can make the entire process easier, especially when you're working on an important business project or you're on a deadline.</p>
+
+<h2>See the Difference in Person</h2>
+<p>There's also something valuable about being able to see and feel your options.</p>
+<p>Paper weight, texture, finishes, colors, and materials can be difficult to judge on a computer screen.</p>
+<blockquote><p>A premium business card can feel completely different from a standard card. A matte finish can create a different impression than gloss. A large-format banner needs to be considered differently than a flyer that someone holds in their hands.</p></blockquote>
+<p>Being able to discuss those options with someone who works with printed materials every day can help you choose the right solution for your project.</p>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>Printing Is Part of Your Brand</h2>
+<p>Your printed materials are often an extension of your business.</p>
+<ul>
+<li>A <strong>business card</strong> is exchanged during a conversation.</li>
+<li>A <strong>brochure</strong> may be sitting on a customer's desk for weeks.</li>
+<li>A <strong>banner</strong> might be the first thing someone notices when they walk into an event.</li>
+<li>A <strong>promotional item</strong> can keep your business in front of a customer long after the initial interaction.</li>
+</ul>
+<p>Quality matters because these physical materials can become part of the way people experience your brand.</p>
+<p>That's why we focus on more than simply producing a finished product. We want the final piece to look intentional, professional, and representative of the business behind it.</p>
+
+<h2>A Rockford Print Shop for Business &amp; Personal Projects</h2>
+<p>Ragsdale Design Center serves Rockford, Michigan with professional printing and design services for both businesses and individuals.</p>
+<p>From business cards and marketing materials to banners, signage, promotional products, invitations, and specialty printing, we're here to help bring your project from an idea to something you can hold in your hands.</p>
+<p>If you're looking for a local print shop in Rockford, we'd love to see what you're working on.</p>
+
+<div class="blog-cta"><p>Ready to start your next project? Get in touch with Ragsdale Design Center and let's create something worth keeping.</p></div>`
   },
   "how-to-choose-the-right-business-cards-for-your-brand": {
     title: "How to Choose the Right Business Cards for Your Brand",
     date: "September 21, 2025",
     readTime: "6 min read",
     category: "Business Cards",
-    content: `<p>Business cards may be small, but they can say a lot about your business.</p><p>They're often exchanged during introductions, networking events, sales meetings, appointments, and everyday conversations. For many businesses, a business card is one of the first physical pieces of their brand that a potential customer gets to experience.</p><p>So how do you choose the right one?</p><p>It starts with more than just putting your logo and phone number on a piece of cardstock.</p><h2>Start With Your Brand</h2><p>Before choosing paper or finishes, think about the impression you want your business card to make.</p><p>Is your brand modern and minimal?</p><p>Traditional and professional?</p><p>Bold and creative?</p><p>Friendly and approachable?</p><p>Your business card should support that identity.</p><p>A clean design with plenty of white space might be perfect for one business, while another may benefit from bold colors, unique shapes, or specialty finishes.</p><p>The important thing is consistency.</p><p>Your business card should feel like it belongs to the same brand as your website, signage, marketing materials, and other customer-facing materials.</p><h2>Choose the Right Cardstock</h2><p>Not all business cards feel the same.</p><p>Standard cardstock can be a great choice for everyday networking and general business use.</p><p>Heavier or ultra-thick cardstock can create a more substantial, premium feel.</p><p>The right choice depends on how the cards will be used and what kind of impression you want to create.</p><p>If you're unsure, it's worth seeing and comparing different stocks before making your decision.</p><h2>Consider the Finish</h2><p>The finish of a business card can dramatically change its appearance and feel.</p><p>Some common options include:</p><ul><li>Matte</li><li>Gloss</li><li>Soft-touch</li><li>Uncoated</li></ul><p>There are also specialty options available for businesses looking for something more distinctive, including foil stamping, embossing, spot UV, and custom shapes.</p><p>You don't necessarily need the most elaborate option.</p><p>The goal is to choose a combination that makes sense for your brand.</p><p>Sometimes simple is more effective.</p><p>Other times, a specialty finish is exactly what helps a card stand out.</p><h2>Don't Forget the Information</h2><p>A beautiful business card isn't very useful if someone can't figure out how to contact you.</p><p>At minimum, consider including:</p><ul><li>Business name</li><li>Logo</li><li>Your name</li><li>Phone number</li><li>Email address</li><li>Website</li><li>Relevant social media information</li></ul><p>Depending on your business, you may also want to include your physical address, job title, QR code, or a short description of what you do.</p><p>The key is to avoid overcrowding the card.</p><p>Give the important information room to breathe.</p><h2>Your Business Card Should Be Easy to Remember</h2><p>A good business card doesn't have to be complicated.</p><p>It needs to be recognizable, readable, and consistent with your brand.</p><p>A thoughtful combination of design, cardstock, finish, and information can turn a simple card into something that people actually want to keep.</p><p>And that matters.</p><p>Because even in a digital world, there's still something powerful about handing someone a physical representation of your business.</p><h2>Need Business Card Printing in Rockford?</h2><p>Ragsdale Design Center offers custom business card printing in Rockford, Michigan with a variety of cardstock, finishes, specialty options, shapes, and sizes.</p><p>Whether you already have a finished design or need help preparing your project for print, we're happy to help.</p><p><strong>Have an idea for your next set of business cards? Bring it to Ragsdale Design Center and we'll help you turn it into something worth handing out.</strong></p>`
+    content: `<p>Business cards may be small, but they can say a lot about your business.</p>
+<p>They're often exchanged during introductions, networking events, sales meetings, appointments, and everyday conversations. For many businesses, a business card is one of the first physical pieces of their brand that a potential customer gets to experience.</p>
+<p>So how do you choose the right one?</p>
+<blockquote><p>It starts with more than just putting your logo and phone number on a piece of cardstock.</p></blockquote>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>Start With Your Brand</h2>
+<p>Before choosing paper or finishes, think about the impression you want your business card to make.</p>
+<div class="blog-highlight">
+<p>Is your brand modern and minimal?</p>
+<p>Traditional and professional?</p>
+<p>Bold and creative?</p>
+<p>Friendly and approachable?</p>
+</div>
+<p>Your business card should support that identity.</p>
+<p>A clean design with plenty of white space might be perfect for one business, while another may benefit from bold colors, unique shapes, or specialty finishes.</p>
+<p>The important thing is <strong>consistency.</strong></p>
+<p>Your business card should feel like it belongs to the same brand as your website, signage, marketing materials, and other customer-facing materials.</p>
+
+<h2>Choose the Right Cardstock</h2>
+<p>Not all business cards feel the same.</p>
+<p>Standard cardstock can be a great choice for everyday networking and general business use.</p>
+<p>Heavier or ultra-thick cardstock can create a more substantial, premium feel.</p>
+<p>The right choice depends on how the cards will be used and what kind of impression you want to create.</p>
+<blockquote><p>If you're unsure, it's worth seeing and comparing different stocks before making your decision.</p></blockquote>
+
+<h2>Consider the Finish</h2>
+<p>The finish of a business card can dramatically change its appearance and feel.</p>
+<p>Some common options include:</p>
+<ul>
+<li><strong>Matte</strong> — smooth, sophisticated, easy to write on</li>
+<li><strong>Gloss</strong> — vibrant colors, eye-catching shine</li>
+<li><strong>Soft-touch</strong> — luxurious tactile feel</li>
+<li><strong>Uncoated</strong> — natural, understated look</li>
+</ul>
+<p>There are also specialty options available for businesses looking for something more distinctive, including <strong>foil stamping, embossing, spot UV, and custom shapes.</strong></p>
+<p>You don't necessarily need the most elaborate option. The goal is to choose a combination that makes sense for your brand. Sometimes simple is more effective. Other times, a specialty finish is exactly what helps a card stand out.</p>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>Don't Forget the Information</h2>
+<p>A beautiful business card isn't very useful if someone can't figure out how to contact you.</p>
+<p>At minimum, consider including:</p>
+<ul>
+<li>Business name</li>
+<li>Logo</li>
+<li>Your name</li>
+<li>Phone number</li>
+<li>Email address</li>
+<li>Website</li>
+<li>Relevant social media information</li>
+</ul>
+<p>Depending on your business, you may also want to include your physical address, job title, QR code, or a short description of what you do.</p>
+<blockquote><p>The key is to avoid overcrowding the card. Give the important information room to breathe.</p></blockquote>
+
+<h2>Your Business Card Should Be Easy to Remember</h2>
+<p>A good business card doesn't have to be complicated.</p>
+<p>It needs to be recognizable, readable, and consistent with your brand.</p>
+<p>A thoughtful combination of design, cardstock, finish, and information can turn a simple card into something that people actually want to keep.</p>
+<p>And that matters.</p>
+<p>Because even in a digital world, there's still something powerful about handing someone a physical representation of your business.</p>
+
+<h2>Need Business Card Printing in Rockford?</h2>
+<p>Ragsdale Design Center offers custom business card printing in Rockford, Michigan with a variety of cardstock, finishes, specialty options, shapes, and sizes.</p>
+<p>Whether you already have a finished design or need help preparing your project for print, we're happy to help.</p>
+
+<div class="blog-cta"><p>Have an idea for your next set of business cards? Bring it to Ragsdale Design Center and we'll help you turn it into something worth handing out.</p></div>`
   },
   "5-ways-banners-and-signs-can-help-your-business-get-noticed": {
     title: "5 Ways Banners and Signs Can Help Your Business Get Noticed",
     date: "September 21, 2025",
     readTime: "6 min read",
     category: "Marketing",
-    content: `<p>Your customers can't choose your business if they don't know you're there.</p><p>That's why signage and large-format printing remain valuable marketing tools for businesses of all sizes.</p><p>Whether you're promoting a grand opening, advertising a special event, directing customers, or simply making your business easier to find, a well-designed sign can communicate your message before anyone says a word.</p><p>Here are five ways custom signs and banners can help your business get noticed.</p><h2>1. Make Your Location Easier to Find</h2><p>If customers are coming to your business in person, visibility matters.</p><p>Exterior signs, window graphics, banners, and other displays can help customers identify your location quickly.</p><p>Think about the experience from a customer's perspective.</p><p>They're driving down the street looking for your business.</p><p>Can they immediately recognize where you are?</p><p>Good signage can make that answer much easier.</p><h2>2. Promote a Sale or Special Event</h2><p>Temporary signage is an easy way to put a promotion directly in front of the people passing by your business.</p><p>Banners, posters, yard signs, and A-frame signs can be used for:</p><ul><li>Grand openings</li><li>Seasonal promotions</li><li>Sales</li><li>Special events</li><li>Community events</li><li>Fundraisers</li><li>New product launches</li><li>Holiday promotions</li></ul><p>Unlike an online advertisement that disappears when someone scrolls past it, physical signage can continue working throughout the day.</p><h2>3. Turn Empty Space Into Marketing Space</h2><p>Walls, windows, doors, sidewalks, and other areas around your business can become opportunities to communicate with customers.</p><p>Large-format printing allows businesses to make use of spaces that might otherwise go unnoticed.</p><p>Window graphics can promote your services.</p><p>A banner can advertise an upcoming event.</p><p>A poster can highlight a special offer.</p><p>Even a simple A-frame sign can encourage someone walking past to stop and take a closer look.</p><h2>4. Build a More Consistent Brand</h2><p>Your signage shouldn't feel disconnected from the rest of your marketing.</p><p>When your logo, colors, typography, and messaging are consistent across your signs, business cards, brochures, promotional products, and other materials, your business becomes easier to recognize.</p><p>That consistency can make a small business look more established and professional.</p><p>The best signage isn't just visible.</p><p>It feels like your brand.</p><h2>5. Get Your Message Seen Again and Again</h2><p>One of the biggest advantages of physical signage is repetition.</p><p>A banner hanging outside your business can be seen by the same people multiple times.</p><p>A window graphic can be visible every time someone walks into your location.</p><p>A yard sign can introduce your business to an entire neighborhood.</p><p>That repeated exposure can help keep your business in people's minds when they're ready to make a purchase.</p><h2>The Right Sign Starts With the Right Message</h2><p>Good signage isn't about putting as much information as possible on a large piece of material.</p><p>It's about communicating the right message clearly.</p><p>Keep the most important information easy to see.</p><p>Use readable text.</p><p>Choose images and colors that support your brand.</p><p>And think about where the sign will be viewed from.</p><p>A banner someone sees from 100 feet away needs to be designed differently from a poster someone will hold in their hands.</p><h2>Large-Format Printing in Rockford, Michigan</h2><p>At Ragsdale Design Center, we provide large-format printing and signage for businesses, organizations, events, and personal projects throughout Rockford and the surrounding area.</p><p>Our services include banners, posters, yard signs, A-frame signs, window graphics, trade show materials, engineering plans, and more.</p><p>If you have an idea for a sign but aren't sure what format or material makes the most sense, that's okay.</p><p><strong>Bring us your idea. We'll help you turn it into something people can see.</strong></p>`
+    content: `<p>Your customers can't choose your business if they don't know you're there.</p>
+<p>That's why signage and large-format printing remain valuable marketing tools for businesses of all sizes.</p>
+<p>Whether you're promoting a grand opening, advertising a special event, directing customers, or simply making your business easier to find, a well-designed sign can communicate your message before anyone says a word.</p>
+<blockquote><p>Here are five ways custom signs and banners can help your business get noticed.</p></blockquote>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>1. Make Your Location Easier to Find</h2>
+<p>If customers are coming to your business in person, visibility matters.</p>
+<p>Exterior signs, window graphics, banners, and other displays can help customers identify your location quickly.</p>
+<p>Think about the experience from a customer's perspective. They're driving down the street looking for your business.</p>
+<p>Can they immediately recognize where you are?</p>
+<p>Good signage can make that answer much easier.</p>
+
+<h2>2. Promote a Sale or Special Event</h2>
+<p>Temporary signage is an easy way to put a promotion directly in front of the people passing by your business.</p>
+<p>Banners, posters, yard signs, and A-frame signs can be used for:</p>
+<ul>
+<li>Grand openings</li>
+<li>Seasonal promotions</li>
+<li>Sales</li>
+<li>Special events</li>
+<li>Community events</li>
+<li>Fundraisers</li>
+<li>New product launches</li>
+<li>Holiday promotions</li>
+</ul>
+<blockquote><p>Unlike an online advertisement that disappears when someone scrolls past it, physical signage can continue working throughout the day.</p></blockquote>
+
+<h2>3. Turn Empty Space Into Marketing Space</h2>
+<p>Walls, windows, doors, sidewalks, and other areas around your business can become opportunities to communicate with customers.</p>
+<p>Large-format printing allows businesses to make use of spaces that might otherwise go unnoticed.</p>
+<div class="blog-highlight">
+<p>Window graphics can promote your services.</p>
+<p>A banner can advertise an upcoming event.</p>
+<p>A poster can highlight a special offer.</p>
+<p>Even a simple A-frame sign can encourage someone walking past to stop and take a closer look.</p>
+</div>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>4. Build a More Consistent Brand</h2>
+<p>Your signage shouldn't feel disconnected from the rest of your marketing.</p>
+<p>When your logo, colors, typography, and messaging are consistent across your signs, business cards, brochures, promotional products, and other materials, your business becomes easier to recognize.</p>
+<p>That consistency can make a small business look more established and professional.</p>
+<blockquote><p>The best signage isn't just visible. It feels like your brand.</p></blockquote>
+
+<h2>5. Get Your Message Seen Again and Again</h2>
+<p>One of the biggest advantages of physical signage is <strong>repetition.</strong></p>
+<div class="blog-highlight">
+<p>A banner hanging outside your business can be seen by the same people multiple times.</p>
+<p>A window graphic can be visible every time someone walks into your location.</p>
+<p>A yard sign can introduce your business to an entire neighborhood.</p>
+</div>
+<p>That repeated exposure can help keep your business in people's minds when they're ready to make a purchase.</p>
+
+<div class="blog-divider"><span>&#9670;</span></div>
+
+<h2>The Right Sign Starts With the Right Message</h2>
+<p>Good signage isn't about putting as much information as possible on a large piece of material.</p>
+<p>It's about communicating the right message clearly.</p>
+<ul>
+<li>Keep the most important information easy to see</li>
+<li>Use readable text</li>
+<li>Choose images and colors that support your brand</li>
+<li>Think about where the sign will be viewed from</li>
+</ul>
+<blockquote><p>A banner someone sees from 100 feet away needs to be designed differently from a poster someone will hold in their hands.</p></blockquote>
+
+<h2>Large-Format Printing in Rockford, Michigan</h2>
+<p>At Ragsdale Design Center, we provide large-format printing and signage for businesses, organizations, events, and personal projects throughout Rockford and the surrounding area.</p>
+<p>Our services include banners, posters, yard signs, A-frame signs, window graphics, trade show materials, engineering plans, and more.</p>
+<p>If you have an idea for a sign but aren't sure what format or material makes the most sense, that's okay.</p>
+
+<div class="blog-cta"><p>Bring us your idea. We'll help you turn it into something people can see.</p></div>`
   },
   "choosing-right-business-card-stock": {
     title: "Choosing the Right Business Card Stock: A Complete Guide for 2025",
@@ -186,7 +380,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         )}
 
         <div 
-          className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-zinc-300 prose-a:text-primary prose-strong:text-white prose-ul:text-zinc-300 prose-li:text-zinc-300"
+          className="blog-content prose prose-lg prose-invert max-w-none prose-headings:text-white prose-p:text-zinc-300 prose-a:text-primary prose-strong:text-white prose-ul:text-zinc-300 prose-li:text-zinc-300"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 

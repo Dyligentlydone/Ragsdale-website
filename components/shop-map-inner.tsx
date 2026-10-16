@@ -40,12 +40,11 @@ export default function ShopMapInner() {
       dragging={true}
       style={{ height: "100%", width: "100%", background: "#000" }}
       zoomControl={true}
-      attributionControl={false}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        subdomains={["a", "b", "c", "d"]}
-        maxZoom={20}
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+        attribution="Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom"
+        maxZoom={16}
       />
       <Marker position={[SHOP.lat, SHOP.lng]} icon={pinIcon} />
     </MapContainer>

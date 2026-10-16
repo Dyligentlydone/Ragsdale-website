@@ -47,3 +47,17 @@
 .leaflet-control-zoom {
   margin: 16px !important;
 }
+
+/* Dark-themed attribution */
+.leaflet-control-attribution {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px);
+  color: #52525b !important;
+  font-size: 10px !important;
+  padding: 2px 6px !important;
+  border-radius: 8px 0 0 0;
+}
+
+.leaflet-control-attribution a {
+  color: #71717a !important;
+}

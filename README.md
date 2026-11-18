@@ -25,7 +25,7 @@ Contact form files upload directly to Cloudflare R2 via presigned URLs (`/api/up
 ```json
 [
   {
-    "AllowedOrigins": ["https://ragsdaledesign.com", "http://localhost:3000"],
+    "AllowedOrigins": ["https://ragsdaledesign.com", "https://www.ragsdaledesign.com", "http://localhost:3000"],
     "AllowedMethods": ["PUT", "GET"],
     "AllowedHeaders": ["*"],
     "MaxAgeSeconds": 3600

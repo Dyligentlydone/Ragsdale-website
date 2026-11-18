@@ -1,57 +1,29 @@
 import { NextRequest, NextResponse } from "next/server"
+import { HeadObjectCommand } from "@aws-sdk/client-s3"
 import { Resend } from "resend"
+import { prisma } from "@/lib/prisma"
+import { getR2Client, R2_BUCKET } from "@/lib/r2"
 
 export async function POST(request: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
   try {
     const formData = await request.formData()
 
-    const turnstileToken = formData.get("turnstileToken") as string | null
-    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY
-
-    if (!turnstileSecret) {
-      console.error("Turnstile secret key missing")
+    const sessionId = formData.get("sessionId") as string | null
+    if (!sessionId) {
       return NextResponse.json(
-        { error: "Verification service not configured" },
-        { status: 500 }
-      )
-    }
-
-    if (!turnstileToken) {
-      return NextResponse.json(
-        { error: "Verification token missing" },
+        { error: "Submission session missing" },
         { status: 400 }
       )
     }
 
-    const clientIp =
-      request.headers.get("cf-connecting-ip") ||
-      request.headers.get("x-forwarded-for")?.split(",")[0].trim()
-
-    const turnstileResponse = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          secret: turnstileSecret,
-          response: turnstileToken,
-          ...(clientIp ? { remoteip: clientIp } : {}),
-        }),
-      }
-    )
-
-    const turnstileResult = (await turnstileResponse.json()) as {
-      success: boolean
-      "error-codes"?: string[]
-    }
-
-    if (!turnstileResult.success) {
-      console.warn("Turnstile verification failed", turnstileResult["error-codes"])
+    const session = await prisma.uploadSession.findUnique({
+      where: { id: sessionId },
+      include: { uploads: true },
+    })
+    if (!session || session.consumed) {
       return NextResponse.json(
-        { error: "Verification failed" },
+        { error: "Invalid or expired submission" },
         { status: 400 }
       )
     }
@@ -63,26 +35,37 @@ export async function POST(request: NextRequest) {
     const projectType = formData.get("projectType") as string
     const message = formData.get("message") as string
 
-    const files = formData.getAll("files") as File[]
+    // Confirm each file actually landed in R2 before linking it
+    const verifiedUploads = (
+      await Promise.all(
+        session.uploads.map(async (upload) => {
+          try {
+            const head = await getR2Client().send(
+              new HeadObjectCommand({ Bucket: R2_BUCKET, Key: upload.key })
+            )
+            return { ...upload, size: head.ContentLength ?? upload.size }
+          } catch {
+            console.warn(`Upload ${upload.id} missing from storage, skipping`)
+            return null
+          }
+        })
+      )
+    ).filter((u) => u !== null)
 
-    const attachments = await Promise.all(
-      files.map(async (file) => {
-        const bytes = await file.arrayBuffer()
-        const buffer = Buffer.from(bytes)
-
-        return {
-          filename: file.name,
-          content: buffer,
-        }
-      })
-    )
+    const origin =
+      process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin
+    const fileLinks = verifiedUploads.map((u) => ({
+      name: u.filename,
+      size: u.size,
+      url: `${origin}/api/files/${u.id}`,
+    }))
 
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #111827; border-bottom: 2px solid #111827; padding-bottom: 10px;">
           New Project Inquiry - Ragsdale Design
         </h2>
-        
+
         <div style="margin: 20px 0;">
           <h3 style="color: #374151; margin-bottom: 10px;">Contact Information</h3>
           <table style="width: 100%; border-collapse: collapse;">
@@ -122,13 +105,13 @@ ${message}
           </div>
         </div>
 
-        ${files.length > 0 ? `
+        ${fileLinks.length > 0 ? `
         <div style="margin: 20px 0;">
-          <h3 style="color: #374151; margin-bottom: 10px;">Attached Files (${files.length})</h3>
+          <h3 style="color: #374151; margin-bottom: 10px;">Attached Files (${fileLinks.length})</h3>
           <ul style="list-style: none; padding: 0;">
-            ${files.map(file => `
+            ${fileLinks.map(file => `
               <li style="padding: 5px 0;">
-                📎 ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)
+                📎 <a href="${file.url}" style="color: #2563eb;">${file.name}</a> (${(file.size / (1024 * 1024)).toFixed(2)} MB)
               </li>
             `).join('')}
           </ul>
@@ -154,9 +137,9 @@ ${projectType ? `Project Type: ${projectType}` : ''}
 Project Details:
 ${message}
 
-${files.length > 0 ? `
-Attached Files (${files.length}):
-${files.map(file => `- ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB)`).join('\n')}
+${fileLinks.length > 0 ? `
+Attached Files (${fileLinks.length}):
+${fileLinks.map(file => `- ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB): ${file.url}`).join('\n')}
 ` : ''}
     `
 
@@ -167,7 +150,11 @@ ${files.map(file => `- ${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} M
       subject: `New Project Inquiry from ${name}`,
       html: emailHtml,
       text: emailText,
-      attachments: attachments.length > 0 ? attachments : undefined,
+    })
+
+    await prisma.uploadSession.update({
+      where: { id: sessionId },
+      data: { consumed: true },
     })
 
     return NextResponse.json(

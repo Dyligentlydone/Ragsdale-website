@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1166.0",
+    "@aws-sdk/s3-request-presigner": "^3.1166.0",
     "@marsidev/react-turnstile": "^1.5.3",
     "@prisma/client": "^6.19.3",
     "@radix-ui/react-label": "^2.1.8",

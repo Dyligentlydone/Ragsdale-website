@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useCallback } from "react"
-import { useDropzone } from "react-dropzone"
+import { useState, useCallback, useRef } from "react"
+import { useDropzone, FileRejection } from "react-dropzone"
 import { Upload, X, FileIcon, Loader2, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,6 +14,31 @@ interface UploadedFile {
   preview?: string
 }
 
+const MAX_FILES = 20
+const MAX_FILE_SIZE = 2 * 1024 * 1024 * 1024 // 2GB
+
+function uploadToStorage(
+  url: string,
+  file: File,
+  contentType: string,
+  onProgress: (fraction: number) => void
+) {
+  return new Promise<void>((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open("PUT", url)
+    xhr.setRequestHeader("Content-Type", contentType)
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) onProgress(e.loaded / e.total)
+    }
+    xhr.onload = () =>
+      xhr.status >= 200 && xhr.status < 300
+        ? resolve()
+        : reject(new Error(`Upload failed (${xhr.status})`))
+    xhr.onerror = () => reject(new Error("Upload failed"))
+    xhr.send(file)
+  })
+}
+
 export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
@@ -24,11 +49,15 @@ export function ContactForm() {
     message: "",
   })
   const [files, setFiles] = useState<UploadedFile[]>([])
+  const [rejectionError, setRejectionError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitPhase, setSubmitPhase] = useState("")
+  const [uploadProgress, setUploadProgress] = useState<Record<number, number>>({})
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [turnstileError, setTurnstileError] = useState<string | null>(null)
   const [turnstileKey, setTurnstileKey] = useState(0)
+  const turnstileRetries = useRef(0)
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -39,9 +68,25 @@ export function ContactForm() {
     setFiles((prev) => [...prev, ...newFiles])
   }, [])
 
+  const onDropRejected = useCallback((rejections: FileRejection[]) => {
+    const names = rejections.map((r) => {
+      const reason =
+        r.errors[0]?.code === "file-too-large"
+          ? "over 2GB"
+          : r.errors[0]?.code === "too-many-files"
+            ? "too many files"
+            : "type not supported"
+      return `${r.file.name} (${reason})`
+    })
+    setRejectionError(`Couldn't add: ${names.join(", ")}`)
+    setTimeout(() => setRejectionError(null), 8000)
+  }, [])
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    maxSize: 100 * 1024 * 1024,
+    onDropRejected,
+    maxFiles: MAX_FILES,
+    maxSize: MAX_FILE_SIZE,
     accept: {
       "image/*": [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"],
       "application/pdf": [".pdf"],
@@ -79,19 +124,50 @@ export function ContactForm() {
     setIsSubmitting(true)
     setSubmitStatus("idle")
     setTurnstileError(null)
+    setUploadProgress({})
 
     try {
+      setSubmitPhase("Preparing upload…")
+      const initRes = await fetch("/api/uploads/init", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          turnstileToken,
+          files: files.map(({ file }) => ({
+            name: file.name,
+            size: file.size,
+            type: file.type || "application/octet-stream",
+          })),
+        }),
+      })
+      if (!initRes.ok) {
+        const err = await initRes.json().catch(() => null)
+        throw new Error(err?.error || "Failed to initialize upload")
+      }
+      const { sessionId, uploads } = (await initRes.json()) as {
+        sessionId: string
+        uploads: { id: string; url: string; contentType: string }[]
+      }
+
+      for (let i = 0; i < uploads.length; i++) {
+        setSubmitPhase(
+          `Uploading file ${i + 1} of ${uploads.length}…`
+        )
+        await uploadToStorage(
+          uploads[i].url,
+          files[i].file,
+          uploads[i].contentType,
+          (fraction) =>
+            setUploadProgress((prev) => ({ ...prev, [i]: fraction }))
+        )
+      }
+
+      setSubmitPhase("Sending…")
       const formDataToSend = new FormData()
-      
       Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, value)
       })
-
-      files.forEach((uploadedFile) => {
-        formDataToSend.append("files", uploadedFile.file)
-      })
-
-      formDataToSend.append("turnstileToken", turnstileToken)
+      formDataToSend.append("sessionId", sessionId)
 
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -120,6 +196,7 @@ export function ContactForm() {
       resetTurnstile()
     } finally {
       setIsSubmitting(false)
+      setSubmitPhase("")
     }
   }
 
@@ -212,9 +289,9 @@ export function ContactForm() {
       <div className="space-y-2">
         <Label>Upload Files (Optional)</Label>
         <p className="text-sm text-zinc-500 mb-2">
-          Upload your design files, logos, or reference images. Accepted formats: PDF, AI, EPS, PSD, INDD, PNG, JPG, JPEG, SVG, GIF, WEBP, ZIP (Max 100MB per file)
+          Upload your design files, logos, or reference images. Accepted formats: PDF, AI, EPS, PSD, INDD, PNG, JPG, JPEG, SVG, GIF, WEBP, ZIP (up to 2GB per file, {MAX_FILES} files max)
         </p>
-        
+
         <div
           {...getRootProps()}
           className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
@@ -233,11 +310,17 @@ export function ContactForm() {
                 Drag & drop files here, or click to select files
               </p>
               <p className="text-sm text-zinc-500">
-                Up to 100MB per file
+                Up to 2GB per file
               </p>
             </div>
           )}
         </div>
+
+        {rejectionError && (
+          <p className="text-sm text-amber-400" aria-live="assertive">
+            {rejectionError}
+          </p>
+        )}
 
         {files.length > 0 && (
           <div className="mt-4 space-y-2">
@@ -268,6 +351,17 @@ export function ContactForm() {
                     <p className="text-xs text-zinc-500">
                       {(uploadedFile.file.size / (1024 * 1024)).toFixed(2)} MB
                     </p>
+                    {uploadProgress[index] !== undefined && uploadProgress[index] < 1 && (
+                      <div className="mt-1.5 h-1 w-full bg-zinc-800 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-primary transition-[width]"
+                          style={{ width: `${Math.round(uploadProgress[index] * 100)}%` }}
+                        />
+                      </div>
+                    )}
+                    {uploadProgress[index] === 1 && (
+                      <p className="text-xs text-green-400 mt-0.5">Uploaded</p>
+                    )}
                   </div>
                 </div>
                 <button
@@ -303,12 +397,14 @@ export function ContactForm() {
             key={turnstileKey}
             siteKey={turnstileSiteKey}
             onSuccess={(token) => {
+              turnstileRetries.current = 0
               setTurnstileToken(token)
               setTurnstileError(null)
             }}
             onError={() => {
+              turnstileRetries.current += 1
               setTurnstileError("We couldn't verify you. Please try again.")
-              resetTurnstile()
+              if (turnstileRetries.current < 3) resetTurnstile()
             }}
             onExpire={() => {
               setTurnstileError("Verification expired. Please try again.")
@@ -336,7 +432,7 @@ export function ContactForm() {
         {isSubmitting ? (
           <>
             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Sending...
+            {submitPhase || "Sending..."}
           </>
         ) : (
           "Send Message"

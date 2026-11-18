@@ -8,9 +8,30 @@ Create a `.env.local` file (not committed) with the following keys:
 RESEND_API_KEY=your_resend_key
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
 TURNSTILE_SECRET_KEY=your_turnstile_secret_key
+
+# Cloudflare R2 (contact form file uploads)
+R2_ACCOUNT_ID=your_cloudflare_account_id
+R2_ACCESS_KEY_ID=your_r2_access_key_id
+R2_SECRET_ACCESS_KEY=your_r2_secret_access_key
+R2_BUCKET_NAME=your_bucket_name
 ```
 
 Restart `next dev` whenever these values change. The site key is safe to expose to the browser, while the secret key must stay server-side for verification in `/api/contact`.
+
+### File uploads
+
+Contact form files upload directly to Cloudflare R2 via presigned URLs (`/api/uploads/init`), then `/api/contact` emails download links (`/api/files/<id>`) instead of attachments. The R2 bucket needs a CORS policy allowing `PUT` from the site's origin, e.g.:
+
+```json
+[
+  {
+    "AllowedOrigins": ["https://ragsdaledesign.com", "http://localhost:3000"],
+    "AllowedMethods": ["PUT", "GET"],
+    "AllowedHeaders": ["*"],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
 
 ## Getting Started
 

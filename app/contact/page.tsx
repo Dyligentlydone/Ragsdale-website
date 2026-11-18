@@ -84,7 +84,7 @@ export default function ContactPage() {
                 <p className="font-semibold text-zinc-300">Accepted: PDF, AI, EPS, PSD, INDD, PNG, JPG, JPEG, SVG, GIF, WEBP, ZIP.</p>
                 <p><span className="font-semibold text-zinc-300">Print-ready files:</span> Must be submitted in PDF format with correct bleed area, if necessary.</p>
                 <p><span className="font-semibold text-zinc-300">Logos and vector files:</span> Must be in AI, SVG, or EPS format.</p>
-                <p className="mt-3">For best results, upload high-resolution files (300 DPI minimum). Files up to 100MB each.</p>
+                <p className="mt-3">For best results, upload high-resolution files (300 DPI minimum). Files up to 2GB each.</p>
               </div>
             </div>
           </div>
